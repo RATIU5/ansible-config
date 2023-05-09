@@ -2,7 +2,7 @@
 
 This is my main ansible script for setting up my environment. Works the same on MacOS, Linux, and Windows Subsystem for Linux.
 
-## Prerequisits
+## Prerequisites
 
 Linux or MacOS. For Windows, you can use [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
