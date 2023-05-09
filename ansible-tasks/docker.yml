@@ -1,0 +1,31 @@
+---
+- name: Install Docker
+  hosts: localhost
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: Install Docker using Homebrew (macOS)
+      homebrew_cask:
+        name: docker
+        state: present
+      when: "'Darwin' in ansible_system"
+      become: no
+      tags:
+        - docker
+
+    - name: Install Docker using package manager (Linux)
+      package:
+        name: docker
+        state: present
+      when: "'Linux' in ansible_system"
+      tags:
+        - docker
+
+    - name: Ensure Docker service is started and enabled (Linux)
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+      when: "'Linux' in ansible_system"
+      tags:
+        - docker

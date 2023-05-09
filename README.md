@@ -6,7 +6,7 @@ This is my main ansible script for setting up my environment. Works the same on 
 
 Linux or MacOS. For Windows, you can use [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
-Make sure you have the following installed on your system (they exist on most systems by default):
+Ensure you have the following installed on your system (they exist on most systems by default):
 
 - [curl](https://curl.se/)
 - [bash](https://www.gnu.org/software/bash/)

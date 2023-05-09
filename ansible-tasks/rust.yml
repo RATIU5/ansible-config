@@ -1,0 +1,5 @@
+- name: Install Rust tools
+  shell: brew install rustup-init
+  become: no
+  tags:
+  - rust

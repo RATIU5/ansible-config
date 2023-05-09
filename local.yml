@@ -7,31 +7,22 @@
       update_homebrew: yes
     become: no
     tags:
-    - node
-    - deno
-    - zsh
     - bun
+    - deno
     - git
+    - node
+    - rust
     - util
+    - zig
+    - zsh
   tasks:
   - include: ansible-tasks/zsh.yml
   - include: ansible-tasks/util.yml
   - include: ansible-tasks/git.yml
+  - include: ansible-tasks/docker.yml
   - include: ansible-tasks/node.yml
-
-  - name: Install deno
-    shell: brew install deno
-    become: no
-    tags:
-    - deno
-
-  - name: Install bun
-    shell: curl -fsSL https://bun.sh/install | bash
-    tags:
-    - bun
-
-  - name: Install Rust tools
-    shell: brew install rustup-init
-    become: no
-    tags:
-    - rust
+  - include: ansible-tasks/deno.yml
+  - include: ansible-tasks/bun.yml
+  - include: ansible-tasks/rust.yml
+  - include: ansible-tasks/zig.yml
+  - include: ansible-tasks/golang.yml
