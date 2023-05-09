@@ -1,0 +1,10 @@
+- name: Install n node version manager
+  shell: brew install n
+  become: no
+  tags:
+  - node
+
+- name: n 14
+  shell: n 14
+  tags:
+  - node

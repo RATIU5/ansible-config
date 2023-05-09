@@ -1,0 +1,45 @@
+---
+- hosts: localhost
+  become: true
+  pre_tasks:
+  - name: Update cache
+    ansible.builtin.homebrew:
+      update_homebrew: yes
+    become: no
+    tags:
+    - node
+    - deno
+    - zsh
+    - bun
+    - git
+    - util
+  tasks:
+
+  - name: Install deno
+    shell: brew install deno
+    become: no
+    tags:
+    - deno
+
+  - name: Install bun
+    shell: curl -fsSL https://bun.sh/install | bash
+    tags:
+    - bun
+
+  - name: Install ripgrep
+    shell: brew install ripgrep
+    become: no
+    tags:
+    - util
+
+  - name: Install stow
+    shell: brew install stow
+    become: no
+    tags:
+    - util
+
+  - name: Install Rust tools
+    shell: brew install rustup-init
+    become: no
+    tags:
+    - rust

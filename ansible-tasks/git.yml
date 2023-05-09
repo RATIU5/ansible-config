@@ -1,0 +1,17 @@
+- name: Install git
+  shell: brew install git
+  become: no
+  tags:
+  - git
+
+- name: Install gh
+  shell: brew install gh
+  become: no
+  tags:
+  - git
+
+- name: Install lazygit
+  shell: brew install lazygit
+  become: no
+  tags:
+  - git

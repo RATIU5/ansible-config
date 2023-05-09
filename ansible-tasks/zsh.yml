@@ -1,0 +1,90 @@
+- name: Check if ZSH is installed
+  command: which zsh
+  register: zsh_installed
+  ignore_errors: yes
+  tags:
+  - zsh
+
+- name: Install ZSH
+  package:
+    name: ZSH
+    state: present
+  when: zsh_installed.rc != 0
+  tags:
+  - zsh
+
+- name: Check if ZSH is the default shell on Linux
+  command: "getent passwd {{ ansible_env.USER }} | awk -F: '{ print $7 }'"
+  register: user_shell
+  changed_when: False
+  ignore_errors: true
+  when: "'Darwin' not in ansible_system"
+  tags:
+  - zsh
+
+- name: Check if ZSH is the default shell on macOS
+  command: "dscl . -read /Users/{{ ansible_env.USER }} UserShell"
+  register: user_shell_mac
+  changed_when: False
+  ignore_errors: true
+  when: "'Darwin' in ansible_system"
+  tags:
+  - zsh
+
+- name: Set ZSH as the default shell on Linux
+  command: "chsh -s $(which zsh) {{ ansible_env.USER }}"
+  when: "user_shell.stdout is defined and '/usr/bin/zsh' != user_shell.stdout and 'Darwin' not in ansible_system"
+  tags:
+  - zsh
+
+- name: Set ZSH as the default shell on macOS
+  command: "chsh -s /bin/zsh {{ ansible_env.USER }}"
+  when: "'/bin/zsh' not in user_shell_mac.stdout and 'Darwin' in ansible_system"
+  tags:
+  - zsh
+
+- name: Ensure ~/.config/zsh directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/zsh"
+    state: directory
+  tags:
+  - zsh
+
+- name: Set ZDOTDIR in .zshenv
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshenv"
+    line: 'export ZDOTDIR={{ ansible_env.HOME }}/.config/zsh'
+    create: yes
+  tags:
+  - zsh
+
+- name: Install ZSH plugin autosuggestions
+  ansible.builtin.git:
+    repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
+    dest: "~/.config/zsh/zsh-autosuggestions"
+  tags:
+  - zsh
+
+- name: Install autosuggestions to ZSH
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
+    line: 'source {{ ansible_env.HOME }}/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh'
+    state: present
+    create: yes
+  tags:
+  - zsh
+
+- name: Install Starship
+  shell: brew install starship
+  become: no
+  tags:
+  - zsh
+
+- name: Add starship to zshrc
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
+    line: 'eval "$(starship init zsh)"'
+    state: present
+    create: yes
+  tags:
+  - zsh
