@@ -28,3 +28,6 @@ elif [[ "$(uname)" == "Linux" ]]; then
   # Install ansible
   sudo apt-get install -y ansible
 fi
+
+# Run the Ansible playbook
+ansible-pull -U "https://github.com/RATIU5/ansible-config.git"
