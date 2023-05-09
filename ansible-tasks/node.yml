@@ -1,10 +1,35 @@
 - name: Install n node version manager
-  shell: brew install n
+  package:
+    name: n
+    state: present
   become: no
   tags:
-  - node
+    - node
 
 - name: n 14
-  shell: n 14
+  command:
+    cmd: n 14
   tags:
-  - node
+    - node
+
+- name: Ensure ~/.config/npm directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/npm"
+    state: directory
+  become: no
+
+- name: Move .npm folder to .config/npm if it exists
+  ansible.builtin.command:
+    cmd: "mv {{ ansible_env.HOME }}/.npm {{ ansible_env.HOME }}/.config/npm/"
+  args:
+    removes: "{{ ansible_env.HOME }}/.npm"
+  become: no
+  ignore_errors: yes
+
+- name: Add npm environment variable to .zshenv
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshenv"
+    line: "export NPM_CONFIG_PREFIX={{ ansible_env.HOME }}/.config/npm"
+    state: present
+    create: yes
+  become: no

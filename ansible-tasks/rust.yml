@@ -1,5 +1,47 @@
 - name: Install Rust tools
-  shell: brew install rustup-init
+  command:
+    cmd: "{{ item }}"
+  loop:
+    - "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
+    - "source $HOME/.cargo/env"
   become: no
   tags:
-  - rust
+    - rust
+
+- name: Ensure ~/.config/cargo directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/cargo"
+    state: directory
+  become: no
+  tags:
+    - rust
+
+- name: Move .cargo to .config/cargo if it exists
+  ansible.builtin.command:
+    cmd: "mv {{ ansible_env.HOME }}/.cargo/* {{ ansible_env.HOME }}/.config/cargo/"
+  args:
+    removes: "{{ ansible_env.HOME }}/.cargo/"
+  become: no
+  ignore_errors: yes
+  tags:
+    - rust
+
+- name: Update .cargo/config.toml to point to the new location
+  ansible.builtin.replace:
+    path: "{{ ansible_env.HOME }}/.config/cargo/config.toml"
+    regexp: '(\.cargo)'
+    replace: '.config/cargo'
+  become: no
+  ignore_errors: yes
+  tags:
+    - rust
+
+- name: Add .cargo environment variables to .zshenv
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshenv"
+    line: "export CARGO_HOME={{ ansible_env.HOME }}/.config/cargo"
+    state: present
+    create: yes
+  become: no
+  tags:
+    - rust
