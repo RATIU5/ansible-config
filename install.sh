@@ -1,14 +1,30 @@
 #!/bin/bash
 
-# Set XDG_CONFIG_HOME and ZDOTDIR in .zshenv
-mkdir -p $HOME/.config/zsh
-echo 'export XDG_CONFIG_HOME="$HOME/.config"' >> $HOME/.zshenv
-echo 'export ZDOTDIR="$XDG_CONFIG_HOME/zsh"' >> $HOME/.zshenv
+# Set XDG_CONFIG_HOME and ZDOTDIR variables in .zshenv
+mkdir -p ~/.config/zsh
+echo 'export XDG_CONFIG_HOME="$HOME/.config"' >>~/.zshenv
+echo 'export ZDOTDIR="$XDG_CONFIG_HOME/zsh"' >>~/.zshenv
 
-# Install Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if [[ "$(uname)" == "Darwin" ]]; then
+  # Check if Homebrew is installed
+  if ! command -v brew &>/dev/null; then
+    # Install Homebrew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  else
+    # Update Homebrew
+    brew update
+  fi
 
-# Add Homebrew shell environment to .zshrc
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.config/zsh/.zshrc
+  # Add Homebrew shell environment to .zshrc
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>"$XDG_CONFIG_HOME/zsh/.zshrc"
 
-brew install ansible
+  # Install ansible
+  brew install ansible
+
+elif [[ "$(uname)" == "Linux" ]]; then
+  # Update package manager
+  sudo apt-get update
+
+  # Install ansible
+  sudo apt-get install -y ansible
+fi

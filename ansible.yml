@@ -15,9 +15,9 @@
     - util
   tasks:
   - include: ansible-tasks/zsh.yml
-  - include: ansible-tasks/node.yml
-  - include: ansible-tasks/git.yml
   - include: ansible-tasks/util.yml
+  - include: ansible-tasks/git.yml
+  - include: ansible-tasks/node.yml
 
   - name: Install deno
     shell: brew install deno
