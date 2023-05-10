@@ -1,9 +1,7 @@
 - name: Install Rust tools
-  command:
-    cmd: "{{ item }}"
-  loop:
-    - "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
-    - "source $HOME/.cargo/env"
+  homebrew:
+    name: go
+    state: present
   become: no
   tags:
     - rust
@@ -21,16 +19,6 @@
     cmd: "mv {{ ansible_env.HOME }}/.cargo/* {{ ansible_env.HOME }}/.config/cargo/"
   args:
     removes: "{{ ansible_env.HOME }}/.cargo/"
-  become: no
-  ignore_errors: yes
-  tags:
-    - rust
-
-- name: Update .cargo/config.toml to point to the new location
-  ansible.builtin.replace:
-    path: "{{ ansible_env.HOME }}/.config/cargo/config.toml"
-    regexp: '(\.cargo)'
-    replace: '.config/cargo'
   become: no
   ignore_errors: yes
   tags:

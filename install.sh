@@ -16,7 +16,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
   fi
 
   # Add Homebrew shell environment to .zshrc
-  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>"$XDG_CONFIG_HOME/zsh/.zshrc"
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>"$ZDOTDIR/.zshrc"
 
   # Install ansible
   brew install ansible
@@ -28,6 +28,22 @@ elif [[ "$(uname)" == "Linux" ]]; then
   # Install ansible
   sudo apt-get install -y ansible
 fi
+
+# Create the .config/ansible directory
+mkdir -p "$XDG_CONFIG_HOME/ansible"
+
+# Move the existing ansible.cfg file to the new location (if it exists)
+if [ -f "$HOME/.ansible.cfg" ]; then
+  mv "$HOME/.ansible.cfg" "$XDG_CONFIG_HOME/ansible/ansible.cfg"
+fi
+
+# Add remote_tmp and local_tmp settings to the ansible.cfg file
+echo '[defaults]' >> "$XDG_CONFIG_HOME/ansible/ansible.cfg"
+echo 'remote_tmp = $XDG_CONFIG_HOME/ansible/tmp' >> "$XDG_CONFIG_HOME/ansible/ansible.cfg"
+echo 'local_tmp = $XDG_CONFIG_HOME/ansible/tmp' >> "$XDG_CONFIG_HOME/ansible/ansible.cfg"
+
+# Set the ANSIBLE_CONFIG environment variable in the .zshrc file
+echo 'export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"' >> "$ZDOTDIR/.zshenv"
 
 # Run the Ansible playbook
 ansible-pull -U "https://github.com/RATIU5/ansible-config.git"

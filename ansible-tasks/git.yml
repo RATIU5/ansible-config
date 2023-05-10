@@ -1,80 +1,66 @@
----
-- name: Install git, gh, and lazygit
-  hosts: localhost
-  gather_facts: yes
+
+- name: Install git using Homebrew (macOS)
+  homebrew:
+    name: git
+    state: present
+  when: "'Darwin' in ansible_system"
+  become: no
+  tags:
+    - git
+
+- name: Install git using apt (Linux)
+  package:
+    name: git
+    state: present
+  when: "'Linux' in ansible_system"
   become: yes
-  tasks:
-    - name: Install git using Homebrew (macOS)
-      homebrew:
-        name: git
-        state: present
-      when: "'Darwin' in ansible_system"
-      become: no
+  tags:
+    - git
+
+- name: Install lazygit using curl and install (Linux)
+  block:
+    - name: Download and extract lazygit
+      ansible.builtin.unarchive:
+        src: "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_{{ lazygit_version }}_Linux_x86_64.tar.gz"
+        dest: /tmp
+        extra_opts: ["--no-same-owner", "--no-same-permissions", "--wildcards", "*lazygit"]
+        remote_src: yes
+      vars:
+        lazygit_version: "{{ lookup('url', 'https://api.github.com/repos/jesseduffield/lazygit/releases/latest', split_lines=False) | from_json().tag_name }}"
       tags:
         - git
 
-    - name: Install git using apt (Linux)
-      apt:
-        name: git
-        state: present
-      when: "'Linux' in ansible_system"
-      tags:
-        - git
+    - name: Install lazygit
+      ansible.builtin.copy:
+        src: /tmp/lazygit
+        dest: /usr/local/bin
+        mode: 0755
+  when: "'Linux' in ansible_system"
+  tags:
+    - git
 
-    - name: Install gh using Homebrew (macOS)
-      homebrew:
-        name: gh
-        state: present
-      when: "'Darwin' in ansible_system"
-      become: no
-      tags:
-        - git
+- name: Ensure .config directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/git"
+    state: directory
+  tags:
+    - git
 
-    - name: Install gh using apt (Linux)
-      apt:
-        name: gh
-        state: present
-      when: "'Linux' in ansible_system"
-      tags:
-        - git
+- name: Set GIT_CONFIG environment variable
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshenv"
+    line: 'export GIT_CONFIG="{{ ansible_env.HOME }}/.config/git/.gitconfig"'
+    state: present
+    create: yes
+  tags:
+    - git
 
-    - name: Install lazygit using Homebrew (macOS)
-      homebrew:
-        name: lazygit
-        state: present
-      when: "'Darwin' in ansible_system"
-      become: no
-      tags:
-        - git
-
-    - name: Install lazygit using curl and install (Linux)
-      block:
-        - name: Download and extract lazygit
-          ansible.builtin.unarchive:
-            src: "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_{{ lazygit_version }}_Linux_x86_64.tar.gz"
-            dest: /tmp
-            remote_src: yes
-          vars:
-            lazygit_version: "{{ lookup('url', 'https://api.github.com/repos/jesseduffield/lazygit/releases/latest', split_lines=False) | from_json().tag_name }}"
-          tags:
-            - git
-
-        - name: Install lazygit
-          ansible.builtin.copy:
-            src: /tmp/lazygit
-            dest: /usr/local/bin
-            mode: 0755
-      when: "'Linux' in ansible_system"
-      tags:
-        - git
-
-    - name: Git configuration
-      git_config:
-        name: "{{ item.name }}"
-        value: "{{ item.value }}"
-        scope: global
-      with_items:
-        - { name: 'user.name', value: 'RATIU5' }
-        - { name: 'user.email', value: 'jcmemmott20@outlook.com' }
-      tags:
-        - git
+- name: Git configuration
+  command: "{{ item.cmd }}"
+  environment:
+    GIT_CONFIG: "{{ ansible_env.HOME }}/.config/git/.gitconfig"
+  loop:
+    - { cmd: "git config user.name 'RATIU5'", name: 'user.name', value: 'RATIU5' }
+    - { cmd: "git config user.email 'jcmemmott20@outlook.com'", name: 'user.email', value: 'jcmemmott20@outlook.com' }
+  tags:
+    - git

@@ -1,39 +1,33 @@
----
-- name: Install and configure Go
-  hosts: localhost
-  gather_facts: yes
-  become: yes
-  tasks:
-    - name: Install Go with Homebrew (macOS)
-      homebrew:
-        name: go
-        state: latest
-      when: "'Darwin' in ansible_system"
-      become: no
+- name: Install Go with Homebrew (macOS)
+  homebrew:
+    name: go
+    state: latest
+  when: "'Darwin' in ansible_system"
+  become: no
 
-    - name: Install Go with package manager (Linux)
-      package:
-        name: golang
-        state: latest
-      when: "'Linux' in ansible_system"
+- name: Install Go with package manager (Linux)
+  package:
+    name: golang
+    state: latest
+  when: "'Linux' in ansible_system"
 
-    - name: Set GOPATH, GOROOT, and PATH environment variables
-      ansible.builtin.lineinfile:
-        path: "{{ ansible_env.HOME }}/.zshrc"
-        line: "{{ item }}"
-        state: present
-      loop:
-        - 'export GOPATH=$HOME/go'
-        - 'export GOROOT="$(brew --prefix golang)/libexec"'
-        - 'export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"'
-      when: "'Darwin' in ansible_system"
+- name: Set GOPATH, GOROOT, and PATH environment variables
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
+    line: "{{ item }}"
+    state: present
+  loop:
+    - 'export GOPATH=$HOME/.config/go'
+    - 'export GOROOT="$(brew --prefix golang)/libexec"'
+    - 'export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"'
+  when: "'Darwin' in ansible_system"
 
-    - name: Set GOPATH and PATH environment variables (Linux)
-      ansible.builtin.lineinfile:
-        path: "{{ ansible_env.HOME }}/.zshrc"
-        line: "{{ item }}"
-        state: present
-      loop:
-        - 'export GOPATH=$HOME/go'
-        - 'export PATH="$PATH:${GOPATH}/bin:/usr/local/go/bin"'
-      when: "'Linux' in ansible_system"
+- name: Set GOPATH and PATH environment variables (Linux)
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
+    line: "{{ item }}"
+    state: present
+  loop:
+    - 'export GOPATH=$HOME/.config/go'
+    - 'export PATH="$PATH:${GOPATH}/bin:/usr/local/go/bin"'
+  when: "'Linux' in ansible_system"

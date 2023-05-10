@@ -1,33 +1,15 @@
----
-- name: Install Deno on macOS and Linux
-  hosts: localhost
-  gather_facts: yes
-  become: yes
-  tasks:
-    - name: Install Deno using Homebrew (macOS)
-      homebrew:
-        name: deno
-        state: present
-      when: "'Darwin' in ansible_system"
-      become: no
-      tags:
-        - deno
+- name: Set Deno environment variables
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshenv"
+    line: 'export {{ item }}'
+    create: yes
+  with_items:
+    - 'DENO_DIR="{{ ansible_env.HOME }}/.config/deno"'
+    - 'PATH="$DENO_DIR/bin:$PATH"'
+  tags:
+    - deno
 
-    - name: Install Deno using shell script (Linux)
-      ansible.builtin.shell: curl -fsSL https://deno.land/x/install/install.sh | sh
-      args:
-        executable: /bin/bash
-      when: "'Linux' in ansible_system"
-      tags:
-        - deno
-
-    - name: Set Deno environment variables
-      ansible.builtin.lineinfile:
-        path: "{{ ansible_env.HOME }}/.profile"
-        line: 'export {{ item }}'
-        create: yes
-      with_items:
-        - 'DENO_INSTALL="{{ ansible_env.HOME }}/.deno"'
-        - 'PATH="$DENO_INSTALL/bin:$PATH"'
-      tags:
-        - deno
+- name: Install Deno using Homebrew (macOS)
+  shell: curl -fsSL https://deno.land/x/install/install.sh | sh
+  tags:
+    - deno
