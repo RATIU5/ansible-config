@@ -1,11 +1,15 @@
 ---
 - hosts: localhost
-  become: true
   pre_tasks:
-  - name: Update cache
-    ansible.builtin.homebrew:
-      update_homebrew: yes
-    become: no
+  - name: Include tasks for detected package manager
+    include_tasks: "{{ item }}"
+    with_first_found:
+      - files:
+          - "ansible-tasks/pmg/update_cache_{{ ansible_pkg_mgr }}.yml"
+        paths:
+          - ./
+    loop_control:
+      loop_var: item
     tags:
     - bun
     - deno
