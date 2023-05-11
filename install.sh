@@ -42,8 +42,7 @@ echo '[defaults]' >> "$XDG_CONFIG_HOME/ansible/ansible.cfg"
 echo 'remote_tmp = $XDG_CONFIG_HOME/ansible/tmp' >> "$XDG_CONFIG_HOME/ansible/ansible.cfg"
 echo 'local_tmp = $XDG_CONFIG_HOME/ansible/tmp' >> "$XDG_CONFIG_HOME/ansible/ansible.cfg"
 
-# Set the ANSIBLE_CONFIG environment variable in the .zshrc file
-echo 'export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"' >> "$ZDOTDIR/.zshenv"
+echo "Please wait. This may take several minutes..."
 
 # Run the Ansible playbook
 ansible-pull -U "https://github.com/RATIU5/ansible-config.git"

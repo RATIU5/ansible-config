@@ -1,0 +1,15 @@
+- name: Install n node version manager
+  package:
+    name: n
+    state: present
+  become: no
+  tags:
+    - node
+
+- name: n 14
+  command:
+    cmd: n 14
+  tags:
+    - node
+
+

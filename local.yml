@@ -1,32 +1,27 @@
 ---
 - hosts: localhost
   pre_tasks:
-  - name: Include tasks for detected package manager
-    include_tasks: "{{ item }}"
-    with_first_found:
-      - files:
-          - "ansible-tasks/pmg/update_cache_{{ ansible_pkg_mgr }}.yml"
-        paths:
-          - ./
-    loop_control:
-      loop_var: item
+  - name: Update the package manager (Linux)
+    when: "'Linux' in ansible_system"
+    become: false
+    package:
+      update_cache: true
+      state: present
+  - name: Update homebrew (macOS)
+    when: "'Darwin' in ansible_system"
+    become: false
+    homebrew:
+      update_homebrew: yes
     tags:
-    - bun
-    - deno
-    - git
-    - node
-    - rust
-    - util
-    - zig
-    - zsh
+    - init
   tasks:
-  - include: ansible-tasks/zsh.yml
-  - include: ansible-tasks/util.yml
-  - include: ansible-tasks/git.yml
-  - include: ansible-tasks/docker.yml
-  - include: ansible-tasks/node.yml
-  - include: ansible-tasks/deno.yml
-  - include: ansible-tasks/bun.yml
-  - include: ansible-tasks/rust.yml
-  - include: ansible-tasks/zig.yml
-  - include: ansible-tasks/golang.yml
+  - include: tasks/env.yml
+  # - include: tasks/util.yml
+  # - include: tasks/git.yml
+  # - include: tasks/docker.yml
+  # - include: tasks/node.yml
+  # - include: tasks/deno.yml
+  # - include: tasks/bun.yml
+  # - include: tasks/rust.yml
+  # - include: tasks/zig.yml
+  # - include: tasks/golang.yml

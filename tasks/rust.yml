@@ -1,0 +1,7 @@
+- name: Install Rust tools
+  homebrew:
+    name: go
+    state: present
+  become: no
+  tags:
+    - rust

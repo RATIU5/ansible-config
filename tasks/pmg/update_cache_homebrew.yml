@@ -1,0 +1,3 @@
+- name: Update Homebrew cache (macOS)
+  ansible.builtin.homebrew:
+    update_homebrew: yes

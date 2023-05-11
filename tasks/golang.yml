@@ -1,0 +1,12 @@
+- name: Install Go with Homebrew (macOS)
+  homebrew:
+    name: go
+    state: latest
+  when: "'Darwin' in ansible_system"
+  become: no
+
+- name: Install Go with package manager (Linux)
+  package:
+    name: golang
+    state: latest
+  when: "'Linux' in ansible_system"
