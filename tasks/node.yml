@@ -1,5 +1,13 @@
-- name: Install n node version manager
-  package:
+- name: Install n node version manager (Linux)
+  when: "'Linux' in ansible_system"
+  shell: curl -L https://bit.ly/n-install | bash
+  become: no
+  tags:
+    - node
+
+- name: Install n node version manager (macOS)
+  when: "'Darwin' in ansible_system"
+  homebrew:
     name: n
     state: present
   become: no

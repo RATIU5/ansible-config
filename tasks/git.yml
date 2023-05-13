@@ -17,28 +17,6 @@
   tags:
     - git
 
-- name: Install lazygit using curl and install (Linux)
-  block:
-    - name: Download and extract lazygit
-      ansible.builtin.unarchive:
-        src: "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_{{ lazygit_version }}_Linux_x86_64.tar.gz"
-        dest: /tmp
-        extra_opts: ["--no-same-owner", "--no-same-permissions", "--wildcards", "*lazygit"]
-        remote_src: yes
-      vars:
-        lazygit_version: "{{ lookup('url', 'https://api.github.com/repos/jesseduffield/lazygit/releases/latest', split_lines=False) | from_json().tag_name }}"
-      tags:
-        - git
-
-    - name: Install lazygit
-      ansible.builtin.copy:
-        src: /tmp/lazygit
-        dest: /usr/local/bin
-        mode: 0755
-  when: "'Linux' in ansible_system"
-  tags:
-    - git
-
 - name: Git configuration
   command: "{{ item.cmd }}"
   environment:

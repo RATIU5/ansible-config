@@ -16,10 +16,10 @@
     - init
   tasks:
   - include: tasks/env.yml
-  # - include: tasks/util.yml
-  # - include: tasks/git.yml
-  # - include: tasks/docker.yml
-  # - include: tasks/node.yml
+  - include: tasks/util.yml
+  - include: tasks/git.yml
+  - include: tasks/docker.yml
+  - include: tasks/node.yml
   # - include: tasks/deno.yml
   # - include: tasks/bun.yml
   # - include: tasks/rust.yml

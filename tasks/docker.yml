@@ -1,6 +1,6 @@
 
 - name: Install Docker using Homebrew (macOS)
-  homebrew_cask:
+  homebrew:
     name: docker
     state: present
   when: "'Darwin' in ansible_system"
