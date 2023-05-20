@@ -46,14 +46,14 @@
 - name: Download zsh plugin autosuggestions
   git:
     repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
-    dest: "$XDG_CONFIG_HOME/zsh/zsh-autosuggestions"
+    dest: "{{ ansible_env.HOME }}/.config/zsh/zsh-autosuggestions"
   tags:
     - zsh
 
 - name: Install autosuggestions to zsh
   lineinfile:
     path: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
-    line: "source {{ ansible_env.HOME }}/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    line: "source $XDG_CONFIG_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
     state: present
     create: yes
   tags:
