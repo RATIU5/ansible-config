@@ -1,9 +1,16 @@
-- name: Install n node version manager (Linux)
+- name: Download n node version manager (Linux)
   when: "'Linux' in ansible_system"
-  shell: curl -L https://bit.ly/n-install | bash
-  become: no
+  get_url:
+    url: https://raw.githubusercontent.com/tj/n/master/bin/n
+    dest: /tmp/n-install
+    mode: "0755" # make the script executable
   tags:
     - node
+
+- name: Install n node version manager (Linux)
+  when: "'Linux' in ansible_system"
+  command:
+    cmd: /tmp/n-install
 
 - name: Install n node version manager (macOS)
   when: "'Darwin' in ansible_system"
@@ -14,10 +21,8 @@
   tags:
     - node
 
-- name: n 14
+- name: n 20
   command:
-    cmd: n 14
+    cmd: n 20
   tags:
     - node
-
-

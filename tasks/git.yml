@@ -1,5 +1,4 @@
-
-- name: Install git using Homebrew (macOS)
+- name: Install git (macOS)
   homebrew:
     name: git
     state: present
@@ -8,7 +7,7 @@
   tags:
     - git
 
-- name: Install git using apt (Linux)
+- name: Install git (Linux)
   package:
     name: git
     state: present
@@ -22,7 +21,15 @@
   environment:
     GIT_CONFIG: "{{ ansible_env.HOME }}/.config/git/.gitconfig"
   loop:
-    - { cmd: "git config user.name 'RATIU5'", name: 'user.name', value: 'RATIU5' }
-    - { cmd: "git config user.email 'jcmemmott20@outlook.com'", name: 'user.email', value: 'jcmemmott20@outlook.com' }
+    - {
+        cmd: "git config user.name 'RATIU5'",
+        name: "user.name",
+        value: "RATIU5",
+      }
+    - {
+        cmd: "git config user.email 'jcmemmott20@outlook.com'",
+        name: "user.email",
+        value: "jcmemmott20@outlook.com",
+      }
   tags:
     - git
