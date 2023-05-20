@@ -19,7 +19,7 @@
 - name: Git configuration
   command: "{{ item.cmd }}"
   environment:
-    GIT_CONFIG: "{{ ansible_env.HOME }}/.config/git/.gitconfig"
+    GIT_CONFIG: "{{ ansible_env.HOME }}/.config/git/config"
   loop:
     - {
         cmd: "git config user.name 'RATIU5'",
