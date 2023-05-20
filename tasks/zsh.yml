@@ -1,19 +1,19 @@
-- name: Check if ZSH is installed
+- name: Check if zsh is installed
   command: which zsh
   register: zsh_installed
   ignore_errors: yes
   tags:
     - zsh
 
-- name: Install ZSH
+- name: Install zsh
   package:
-    name: ZSH
+    name: zsh
     state: present
   when: zsh_installed.rc != 0
   tags:
     - zsh
 
-- name: Check if ZSH is the default shell (Linux)
+- name: Check if zsh is the default shell (Linux)
   command: "getent passwd {{ ansible_env.USER }} | awk -F: '{ print $7 }'"
   register: user_shell
   changed_when: False
@@ -22,7 +22,7 @@
   tags:
     - zsh
 
-- name: Check if ZSH is the default shell (macOS)
+- name: Check if zsh is the default shell (macOS)
   command: "dscl . -read /Users/{{ ansible_env.USER }} UserShell"
   register: user_shell_mac
   changed_when: False
@@ -31,26 +31,26 @@
   tags:
     - zsh
 
-- name: Set ZSH as the default shell (Linux)
+- name: Set zsh as the default shell (Linux)
   command: "chsh -s $(which zsh)"
   when: "user_shell.stdout is defined and '/usr/bin/zsh' != user_shell.stdout and 'Darwin' not in ansible_system"
   tags:
     - zsh
 
-- name: Set ZSH as the default shell (macOS)
+- name: Set zsh as the default shell (macOS)
   command: "chsh -s /bin/zsh"
   when: "'/bin/zsh' not in user_shell_mac.stdout and 'Darwin' in ansible_system"
   tags:
     - zsh
 
-- name: Download ZSH plugin autosuggestions
+- name: Download zsh plugin autosuggestions
   git:
     repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
     dest: "$XDG_CONFIG_HOME/zsh/zsh-autosuggestions"
   tags:
     - zsh
 
-- name: Install autosuggestions to ZSH
+- name: Install autosuggestions to zsh
   lineinfile:
     path: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
     line: "source $XDG_CONFIG_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
