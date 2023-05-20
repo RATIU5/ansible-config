@@ -18,7 +18,7 @@
   register: user_shell
   changed_when: False
   ignore_errors: true
-  when: "'Darwin' not in ansible_system"
+  when: "'Linux' in ansible_system"
   tags:
     - zsh
 
