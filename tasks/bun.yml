@@ -1,4 +1,4 @@
-- name: Install bun
-  shell: curl -fsSL https://bun.sh/install | bash
+- name: Install bun (Linux & MacOS)
+  shell: curl -fsSL https://bun.sh/install | sh
   tags:
-  - bun
+    - bun

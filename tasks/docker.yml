@@ -1,4 +1,3 @@
-
 - name: Install Docker using Homebrew (macOS)
   homebrew:
     name: docker

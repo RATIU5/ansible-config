@@ -1,4 +1,4 @@
-- name: Install Deno
+- name: Install Deno (Linux & MacOS)
   shell: curl -fsSL https://deno.land/x/install/install.sh | sh
   tags:
     - deno

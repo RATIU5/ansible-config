@@ -16,7 +16,7 @@
   tags:
     - git
 
-- name: Git configuration
+- name: Git configuration (Linux & MacOS)
   command: "{{ item.cmd }}"
   environment:
     GIT_CONFIG: "{{ ansible_env.HOME }}/.config/git/config"
