@@ -61,7 +61,7 @@
 
 - name: Install Starship (Linux)
   when: "'Linux' in ansible_system"
-  shell: curl -fsSL https://starship.rs/install.sh) | sh
+  shell: curl -fsSL https://starship.rs/install.sh | sh
   become: yes
   tags:
     - zsh
