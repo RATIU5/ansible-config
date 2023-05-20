@@ -48,4 +48,4 @@ echo 'local_tmp = $XDG_CONFIG_HOME/ansible/tmp' >> "$XDG_CONFIG_HOME/ansible/ans
 echo "Please wait. This may take several minutes..."
 
 # Run the Ansible playbook
-ansible-pull -U "https://github.com/RATIU5/ansible-config.git"
+# ansible-pull -U "https://github.com/RATIU5/ansible-config.git"
