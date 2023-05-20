@@ -1,0 +1,170 @@
+- name: Add gcm alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias gcm='git commit -m'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+      - git
+
+- name: Add gaa alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias gaa='git add -A'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+      - git
+
+- name: Add gco alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias gco='git checkout'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+      - git
+
+- name: Add gpl alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias gpl='git pull'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+      - git
+
+- name: Add gps alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias gps='git push'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+      - git
+
+- name: Add gst alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias gst='git status'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+      - git
+
+- name: Add gbr alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias gbr='git branch'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+      - git
+
+- name: Add gpo alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias gpo='git push origin'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+      - git
+
+- name: Add gdf alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias gdf='git diff'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+      - git
+
+- name: Add dev alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias dev='cd ~/dev'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+
+- name: Add doc alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias doc='cd ~/Documents'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+
+- name: Add des alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias des='cd ~/Desktop'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+
+- name: Add dow alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias dow='cd ~/Downloads'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+
+- name: Add .. alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias ..='cd ..'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+
+- name: Add ... alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias ...='cd ../..'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+
+- name: Add .... alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias ....='cd ../../..'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+
+- name: Add c alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias c='clear'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
+
+- name: Add cdir alias
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias cdir='mkdir $1 && cd $1'"
+    state: present
+    insertafter: EOF
+    tags:
+      - alias
