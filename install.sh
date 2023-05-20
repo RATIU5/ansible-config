@@ -23,13 +23,13 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
 elif [[ "$(uname)" == "Linux" ]]; then
   # Update package manager
-  apt-get update
+  apt update
 
   # Install git
-  apt-get install -y git
+  apt install -y git
 
   # Install ansible
-  apt-get install -y ansible
+  apt install -y ansible
 fi
 
 # Create the .config/ansible directory
