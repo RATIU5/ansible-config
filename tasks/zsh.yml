@@ -33,13 +33,13 @@
 
 - name: Set zsh as the default shell (Linux)
   command: "chsh -s $(which zsh)"
-  when: "user_shell.stdout is defined and '/usr/bin/zsh' != user_shell.stdout and 'Darwin' not in ansible_system"
+  when: "'Linux' in ansible_system and user_shell.stdout is defined and '/usr/bin/zsh' != user_shell.stdout"
   tags:
     - zsh
 
 - name: Set zsh as the default shell (macOS)
   command: "chsh -s /bin/zsh"
-  when: "'/bin/zsh' not in user_shell_mac.stdout and 'Darwin' in ansible_system"
+  when: "'Darwin' in ansible_system and '/bin/zsh' not in user_shell_mac.stdout"
   tags:
     - zsh
 
