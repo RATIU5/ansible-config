@@ -29,7 +29,7 @@ elif [[ "$(uname)" == "Linux" ]]; then
   apt install -y git
 
   # Install ansible
-  apt install -y ansible
+  DEBIAN_FRONTEND=noninteractive apt install -y ansible
 fi
 
 # Create the .config/ansible directory
