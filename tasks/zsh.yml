@@ -59,7 +59,15 @@
   tags:
     - zsh
 
-- name: Install Starship
+- name: Install Starship (Linux)
+  when: "'Linux' in ansible_system"
+  shell: curl -fsSL https://starship.rs/install.sh) | sh
+  become: yes
+  tags:
+    - zsh
+
+- name: Install Starship (macOS)
+  when: "'Darwin' in ansible_system"
   shell: brew install starship
   become: no
   tags:
