@@ -53,7 +53,7 @@
 - name: Install autosuggestions to zsh
   lineinfile:
     path: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
-    line: "source $XDG_CONFIG_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    line: "source {{ ansible_env.HOME }}/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
     state: present
     create: yes
   tags:
