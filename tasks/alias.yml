@@ -4,6 +4,7 @@
     line: "alias gcm='git commit -m'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
     - git
@@ -14,6 +15,7 @@
     line: "alias gaa='git add -A'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
     - git
@@ -24,6 +26,7 @@
     line: "alias gco='git checkout'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
     - git
@@ -34,6 +37,7 @@
     line: "alias gpl='git pull'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
     - git
@@ -44,6 +48,7 @@
     line: "alias gps='git push'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
     - git
@@ -54,6 +59,7 @@
     line: "alias gst='git status'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
     - git
@@ -64,6 +70,7 @@
     line: "alias gbr='git branch'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
     - git
@@ -74,6 +81,7 @@
     line: "alias gpo='git push origin'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
     - git
@@ -84,6 +92,7 @@
     line: "alias gdf='git diff'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
     - git
@@ -94,6 +103,7 @@
     line: "alias dev='cd ~/dev'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
 
@@ -103,6 +113,7 @@
     line: "alias doc='cd ~/Documents'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
 
@@ -112,6 +123,7 @@
     line: "alias des='cd ~/Desktop'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
 
@@ -121,6 +133,7 @@
     line: "alias dow='cd ~/Downloads'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
 
@@ -130,6 +143,7 @@
     line: "alias ..='cd ..'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
 
@@ -139,6 +153,7 @@
     line: "alias ...='cd ../..'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
 
@@ -148,6 +163,7 @@
     line: "alias ....='cd ../../..'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
 
@@ -157,6 +173,7 @@
     line: "alias c='clear'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
 
@@ -166,5 +183,6 @@
     line: "alias cdir='mkdir $1 && cd $1'"
     state: present
     insertafter: EOF
+    create: yes
   tags:
     - alias
