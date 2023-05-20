@@ -1,5 +1,0 @@
-- name: Install Zig
-  shell: brew install zig
-  become: no
-  tags:
-  - zig

@@ -1,6 +1,0 @@
-- name: Update yum cache (RHEL/CentOS)
-  ansible.builtin.yum:
-    name: '*'
-    state: latest
-    update_cache: yes
-  become: yes
