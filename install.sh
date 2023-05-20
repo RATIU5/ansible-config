@@ -25,6 +25,9 @@ elif [[ "$(uname)" == "Linux" ]]; then
   # Update package manager
   apt-get update
 
+  # Install git
+  apt-get install -y git
+
   # Install ansible
   apt-get install -y ansible
 fi

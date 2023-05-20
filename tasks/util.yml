@@ -1,11 +1,35 @@
-- name: Install ripgrep
-  shell: brew install ripgrep
-  become: no
+- name: Install ripgrep (Linux)
+  when: "'Linux' in ansible_system"
+  package:
+    name: ripgrep
+    state: present
+  become: yes
   tags:
-  - util
+    - util
 
-- name: Install stow
-  shell: brew install stow
+- name: Install ripgrep (MacOS)
+  homebrew:
+    name: ripgrep
+    state: present
+  when: "'Darwin' in ansible_system"
   become: no
   tags:
-  - util
+    - util
+
+- name: Install stow (Linux)
+  when: "'Linux' in ansible_system"
+  package:
+    name: stow
+    state: present
+  become: yes
+  tags:
+    - util
+
+- name: Install stow (MacOS)
+  when: "'Darwin' in ansible_system"
+  homebrew:
+    name: stow
+    state: present
+  become: no
+  tags:
+    - util
