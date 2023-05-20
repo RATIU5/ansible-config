@@ -100,7 +100,7 @@
 - name: Add dev alias
   lineinfile:
     path: "{{ zshrc }}"
-    line: "alias dev='cd ~/dev'"
+    line: "alias dev='cd ~/Developer'"
     state: present
     insertafter: EOF
     create: yes
@@ -177,10 +177,10 @@
   tags:
     - alias
 
-- name: Add cdir alias
+- name: Add mkcd alias
   lineinfile:
     path: "{{ zshrc }}"
-    line: "alias cdir='mkdir $1 && cd $1'"
+    line: "alias mkcd='mkdir $1 && cd $1'"
     state: present
     insertafter: EOF
     create: yes

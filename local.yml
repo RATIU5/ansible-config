@@ -15,10 +15,11 @@
       tags:
         - init
   vars:
-    zshrc: ~/.config/zsh/.zshrc
+    zshrc: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
   tasks:
     - include: tasks/env.yml
     - include: tasks/alias.yml
+    - include: tasks/zsh.yml
     - include: tasks/util.yml
     - include: tasks/git.yml
     - include: tasks/docker.yml
