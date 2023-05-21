@@ -7,9 +7,27 @@
   tags:
     - git
 
+- name: Install gh (macOS)
+  homebrew:
+    name: gh
+    state: present
+  when: "'Darwin' in ansible_system"
+  become: no
+  tags:
+    - git
+
 - name: Install git (Linux)
   package:
     name: git
+    state: present
+  when: "'Linux' in ansible_system"
+  become: yes
+  tags:
+    - git
+
+- name: Install gh (Linux)
+  package:
+    name: gh
     state: present
   when: "'Linux' in ansible_system"
   become: yes
