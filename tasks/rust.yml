@@ -1,6 +1,6 @@
 - name: Install Rust tools (Linux)
   when: "'Linux' in ansible_system"
-  shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   become: yes
   tags:
     - rust
