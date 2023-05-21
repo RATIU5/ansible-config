@@ -17,6 +17,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
   # Add Homebrew shell environment to .zshrc
   echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>"$ZDOTDIR/.zshrc"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 
   # Install ansible
   brew install ansible
