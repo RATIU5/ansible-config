@@ -20,6 +20,7 @@
     - include: tasks/env.yml
     - include: tasks/alias.yml
     - include: tasks/zsh.yml
+    - include: tasks/tmux.yml
     - include: tasks/util.yml
     - include: tasks/git.yml
     - include: tasks/docker.yml
