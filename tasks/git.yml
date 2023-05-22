@@ -33,21 +33,3 @@
   become: yes
   tags:
     - git
-
-- name: Git configuration (Linux & MacOS)
-  command: "{{ item.cmd }}"
-  environment:
-    GIT_CONFIG: "{{ ansible_env.HOME }}/.config/git/config"
-  loop:
-    - {
-        cmd: "git config user.name 'RATIU5'",
-        name: "user.name",
-        value: "RATIU5",
-      }
-    - {
-        cmd: "git config user.email 'jcmemmott20@outlook.com'",
-        name: "user.email",
-        value: "jcmemmott20@outlook.com",
-      }
-  tags:
-    - git
