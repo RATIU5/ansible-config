@@ -15,9 +15,9 @@
       tags:
         - init
   vars:
-    zshrc: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
+    zshrc: "{{ ansible_env.HOME }}/.zshrc"
   tasks:
-    - include: tasks/env.yml
+    # - include: tasks/env.yml
     - include: tasks/alias.yml
     - include: tasks/zsh.yml
     - include: tasks/tmux.yml
