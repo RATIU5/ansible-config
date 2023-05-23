@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Set XDG_CONFIG_HOME and ZDOTDIR variables in .zshenv
-mkdir -p ~/.config/zsh
-echo 'export XDG_CONFIG_HOME="$HOME/.config"' >>~/.zshenv
-echo 'export ZDOTDIR="$XDG_CONFIG_HOME/zsh"' >>~/.zshenv
+# mkdir -p ~/.config/zsh
+# echo 'export XDG_CONFIG_HOME="$HOME/.config"' >>~/.zshenv
+# echo 'export ZDOTDIR="$XDG_CONFIG_HOME/zsh"' >>~/.zshenv
 
 if [[ "$(uname)" == "Darwin" ]]; then
   # Check if Homebrew is installed
