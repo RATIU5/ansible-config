@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set XDG_CONFIG_HOME and ZDOTDIR variables in .zshenv
-# mkdir -p ~/.config/zsh
+touch ~/.zshenv
 echo 'export XDG_CONFIG_HOME="~"' >>~/.zshenv
 echo 'export ZDOTDIR="$XDG_CONFIG_HOME"' >>~/.zshenv
 
