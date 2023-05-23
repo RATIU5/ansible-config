@@ -2,7 +2,7 @@
 
 # Set XDG_CONFIG_HOME and ZDOTDIR variables in .zshenv
 # mkdir -p ~/.config/zsh
-echo 'export XDG_CONFIG_HOME="$HOME"' >>~/.zshenv
+echo 'export XDG_CONFIG_HOME="~"' >>~/.zshenv
 echo 'export ZDOTDIR="$XDG_CONFIG_HOME"' >>~/.zshenv
 
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -15,8 +15,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
     brew update
   fi
 
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
   # Add Homebrew shell environment to .zshrc
-  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>"$ZDOTDIR/.zshrc"
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>"~/.zshrc"
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
   # Install ansible
