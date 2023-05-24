@@ -5,6 +5,7 @@ install_zsh() {
   if [ "$(uname)" == "Darwin" ]; then
     # zsh is installed by default on macOS
     # brew install zsh
+    echo "zsh installed on macOS..."
   elif command -v apt &>/dev/null; then
     sudo apt install zsh
   elif command -v yum &>/dev/null; then
