@@ -8,31 +8,32 @@ install_brew() {
         # Install dependencies for Linux
         if [ "$(uname)" == "Linux" ]; then
             if command -v apt-get &>/dev/null; then
-                sudo apt-get update
-                sudo apt-get install -y build-essential procps curl file git
+                apt-get update
+                apt-get install -y build-essential procps curl file git
             elif command -v yum &>/dev/null; then
-                sudo yum -y groupinstall 'Development Tools'
-                sudo yum -y install procps-ng curl file git
+                yum -y groupinstall 'Development Tools'
+                yum -y install procps-ng curl file git
             else
-                echo "Unsupported package manager. Install dependencies manually."
+                echo "Unsupported package manager. Install dependencies manually. https://docs.brew.sh/Homebrew-on-Linux#requirements"
                 exit 1
             fi
         fi
 
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         
-        # Check for .zshrc and append brew path
-        if [ -f "$HOME/.zshrc" ]; then
-            # Determine the brew path based on the operating system
-            if [ "$(uname)" == "Darwin" ]; then
-                echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zshrc
-            else  # Assuming Linux
-                echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
-            fi
-            source ~/.zshrc
-        else
-            echo "File .zshrc not found."
+        # Check for .zshrc and create if it doesn't exist
+        if [ ! -f "$HOME/.zshrc" ]; then
+            touch "$HOME/.zshrc"
         fi
+
+        # Append brew path
+        # Determine the brew path based on the operating system
+        if [ "$(uname)" == "Darwin" ]; then
+            echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zshrc
+        else  # Assuming Linux
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
+        fi
+        source ~/.zshrc
     else
         echo "Brew is already installed."
     fi
