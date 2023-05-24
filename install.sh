@@ -1,5 +1,33 @@
 #!/bin/bash
 
+# Function to install zsh on macOS and common Linux distros
+install_zsh() {
+  if [ "$(uname)" == "Darwin" ]; then
+    # zsh is installed by default on macOS
+    # brew install zsh
+  elif command -v apt &>/dev/null; then
+    sudo apt install zsh
+  elif command -v yum &>/dev/null; then
+    sudo yum install zsh
+  elif command -v pacman &>/dev/null; then
+    sudo pacman -S zsh
+  else
+    echo "Unsupported package manager. Install zsh manually."
+    exit 1
+  fi
+
+  if [ ! -f "$HOME/.zshenv" ]; then
+      touch "$HOME/.zshenv"
+  fi
+
+  if [ ! -d "$HOME/.config" ]; then
+    mkdir -p "$HOME/.config"
+  fi
+
+  echo 'export XDG_CONFIG_HOME="$HOME/.config"' >> "$HOME/.zshenv"
+  echo 'export ZDOTDIR="$XDG_CONFIG_HOME/zsh"' >> "$HOME/.zshenv"
+}
+
 # Function to install brew on macOS or Linux
 install_brew() {
     if ! command -v brew &>/dev/null; then
@@ -7,9 +35,9 @@ install_brew() {
 
         # Install dependencies for Linux
         if [ "$(uname)" == "Linux" ]; then
-            if command -v apt-get &>/dev/null; then
-                apt-get update
-                apt-get install -y build-essential procps curl file git
+            if command -v apt &>/dev/null; then
+                apt update
+                apt install -y build-essential procps curl file git
             elif command -v yum &>/dev/null; then
                 yum -y groupinstall 'Development Tools'
                 yum -y install procps-ng curl file git
@@ -21,16 +49,14 @@ install_brew() {
 
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-        
-
         # Append brew path
         if [ "$(uname)" == "Darwin" ]; then
             # Check for .zshrc and create if they don't exist
-            if [ ! -f "$HOME/.zshrc" ]; then
-                touch "$HOME/.zshrc"
+            if [ ! -f "$ZDOTDIR/.zshrc" ]; then
+                touch "$ZDOTDIR/.zshrc"
             fi
-            echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zshrc
-            source ~/.zshrc
+            echo 'eval "$(/usr/local/bin/brew shellenv)"' >> $ZDOTDIR/.zshrc
+            source $ZDOTDIR/.zshrc
         else  # Assuming Linux
             # Check for .bashrc and create if they don't exist
             if [ ! -f "$HOME/.bashrc" ]; then
@@ -41,10 +67,10 @@ install_brew() {
             source ~/.bashrc
             brew install zsh
 
-            if [ ! -f "$HOME/.zshrc" ]; then
-                touch "$HOME/.zshrc"
+            if [ ! -f "$$ZDOTDIR/.zshrc" ]; then
+                touch "$$ZDOTDIR/.zshrc"
             fi
-            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $ZDOTDIR/.zshrc
         fi
     else
         echo "Brew is already installed."
@@ -54,6 +80,7 @@ install_brew() {
 # Detect the operating system
 OS="$(uname)"
 if [ "$OS" == "Darwin" ] || [ "$OS" == "Linux" ]; then
+    install_zsh
     install_brew
 else
     echo "Unsupported operating system: $OS"
@@ -67,6 +94,8 @@ fi
 
 # Install Ansible
 brew install ansible
+
+ansible-pull -U "https://github.com/RATIU5/ansible-config.git"
 
 
 
