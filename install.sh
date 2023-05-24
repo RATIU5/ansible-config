@@ -8,11 +8,11 @@ install_brew() {
         # Install dependencies for Linux
         if [ "$(uname)" == "Linux" ]; then
             if command -v apt-get &>/dev/null; then
-                sudo apt-get update
-                sudo apt-get install -y build-essential procps curl file git
+                apt-get update
+                apt-get install -y build-essential procps curl file git
             elif command -v yum &>/dev/null; then
-                sudo yum -y groupinstall 'Development Tools'
-                sudo yum -y install procps-ng curl file git
+                yum -y groupinstall 'Development Tools'
+                yum -y install procps-ng curl file git
             else
                 echo "Unsupported package manager. Install dependencies manually."
                 exit 1
