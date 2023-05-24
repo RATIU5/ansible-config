@@ -8,32 +8,37 @@ install_brew() {
         # Install dependencies for Linux
         if [ "$(uname)" == "Linux" ]; then
             if command -v apt-get &>/dev/null; then
-                apt-get update
-                apt-get install -y build-essential procps curl file git
+                sudo apt-get update
+                sudo apt-get install -y build-essential procps curl file git
             elif command -v yum &>/dev/null; then
-                yum -y groupinstall 'Development Tools'
-                yum -y install procps-ng curl file git
+                sudo yum -y groupinstall 'Development Tools'
+                sudo yum -y install procps-ng curl file git
             else
-                echo "Unsupported package manager. Install dependencies manually. https://docs.brew.sh/Homebrew-on-Linux#requirements"
+                echo "Unsupported package manager. Install dependencies manually."
                 exit 1
             fi
         fi
 
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        
-        # Check for .zshrc and create if it doesn't exist
+
+        # Check for .zshrc and .profile and create if they don't exist
         if [ ! -f "$HOME/.zshrc" ]; then
             touch "$HOME/.zshrc"
         fi
+        if [ ! -f "$HOME/.profile" ]; then
+            touch "$HOME/.profile"
+        fi
 
         # Append brew path
-        # Determine the brew path based on the operating system
         if [ "$(uname)" == "Darwin" ]; then
             echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zshrc
         else  # Assuming Linux
             echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
         fi
         source ~/.zshrc
+        source ~/.profile
     else
         echo "Brew is already installed."
     fi
