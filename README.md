@@ -18,3 +18,9 @@ Run the following to download the installation script on your system. It will do
 ```bash
 curl -fsSL https://raw.githubusercontent.com/RATIU5/ansible-config/main/install.sh | bash
 ```
+
+Non-cached version:
+
+```bash
+curl -fsSL "https://raw.githubusercontent.com/RATIU5/ansible-config/main/install.sh?$(date +%s)" | bash
+```

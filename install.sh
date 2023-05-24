@@ -21,24 +21,37 @@ install_brew() {
 
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-        # Check for .bashrc and .profile and create if they don't exist
-        if [ ! -f "$HOME/.bashrc" ]; then
-            touch "$HOME/.bashrc"
-        fi
+        
 
         # Append brew path
         if [ "$(uname)" == "Darwin" ]; then
-            echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.bashrc
+            # Check for .zshrc and create if they don't exist
+            if [ ! -f "$HOME/.zshrc" ]; then
+                touch "$HOME/.zshrc"
+            fi
+            echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zshrc
+            source ~/.bashrc
         else  # Assuming Linux
+            # Check for .bashrc and create if they don't exist
+            if [ ! -f "$HOME/.bashrc" ]; then
+                touch "$HOME/.bashrc"
+            fi
             echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
             eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+            source ~/.bashrc
+            brew install zsh
+
+            if [ ! -f "$HOME/.zshrc" ]; then
+                touch "$HOME/.zshrc"
+            fi
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
         fi
         
     else
         echo "Brew is already installed."
     fi
 
-    source ~/.bashrc
+    
 }
 
 # Detect the operating system
@@ -49,6 +62,14 @@ else
     echo "Unsupported operating system: $OS"
     exit 1
 fi
+
+# Install git on macOS
+if [ "$OS" == "Darwin" ]; then
+    brew install git
+fi
+
+# Install Ansible
+brew install ansible
 
 
 
