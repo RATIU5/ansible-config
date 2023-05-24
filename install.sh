@@ -4,7 +4,35 @@
 install_brew() {
     if ! command -v brew &>/dev/null; then
         echo "Installing brew..."
+
+        # Install dependencies for Linux
+        if [ "$(uname)" == "Linux" ]; then
+            if command -v apt-get &>/dev/null; then
+                sudo apt-get update
+                sudo apt-get install -y build-essential procps curl file git
+            elif command -v yum &>/dev/null; then
+                sudo yum -y groupinstall 'Development Tools'
+                sudo yum -y install procps-ng curl file git
+            else
+                echo "Unsupported package manager. Install dependencies manually."
+                exit 1
+            fi
+        fi
+
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        
+        # Check for .zshrc and append brew path
+        if [ -f "$HOME/.zshrc" ]; then
+            # Determine the brew path based on the operating system
+            if [ "$(uname)" == "Darwin" ]; then
+                echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zshrc
+            else  # Assuming Linux
+                echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
+            fi
+            source ~/.zshrc
+        else
+            echo "File .zshrc not found."
+        fi
     else
         echo "Brew is already installed."
     fi
