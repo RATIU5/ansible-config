@@ -25,23 +25,20 @@ install_brew() {
         if [ ! -f "$HOME/.bashrc" ]; then
             touch "$HOME/.bashrc"
         fi
-        if [ ! -f "$HOME/.profile" ]; then
-            touch "$HOME/.profile"
-        fi
 
         # Append brew path
         if [ "$(uname)" == "Darwin" ]; then
             echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.bashrc
         else  # Assuming Linux
             echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
-            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
             eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
         fi
-        source ~/.bashrc
-        source ~/.profile
+        
     else
         echo "Brew is already installed."
     fi
+
+    source ~/.bashrc
 }
 
 # Detect the operating system
