@@ -30,7 +30,7 @@ install_brew() {
                 touch "$HOME/.zshrc"
             fi
             echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zshrc
-            source ~/.bashrc
+            source ~/.zshrc
         else  # Assuming Linux
             # Check for .bashrc and create if they don't exist
             if [ ! -f "$HOME/.bashrc" ]; then
@@ -46,12 +46,9 @@ install_brew() {
             fi
             echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
         fi
-        
     else
         echo "Brew is already installed."
     fi
-
-    
 }
 
 # Detect the operating system
