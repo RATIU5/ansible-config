@@ -21,9 +21,9 @@ install_brew() {
 
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-        # Check for .zshrc and .profile and create if they don't exist
-        if [ ! -f "$HOME/.zshrc" ]; then
-            touch "$HOME/.zshrc"
+        # Check for .bashrc and .profile and create if they don't exist
+        if [ ! -f "$HOME/.bashrc" ]; then
+            touch "$HOME/.bashrc"
         fi
         if [ ! -f "$HOME/.profile" ]; then
             touch "$HOME/.profile"
@@ -31,13 +31,13 @@ install_brew() {
 
         # Append brew path
         if [ "$(uname)" == "Darwin" ]; then
-            echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zshrc
+            echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.bashrc
         else  # Assuming Linux
-            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
             echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
             eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
         fi
-        source ~/.zshrc
+        source ~/.bashrc
         source ~/.profile
     else
         echo "Brew is already installed."
