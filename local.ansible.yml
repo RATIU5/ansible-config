@@ -15,18 +15,19 @@
       tags:
         - init
   vars:
+    CONFIG_DIR: "{{ ansible_env.HOME }}/.config"
     zshrc: "{{ ansible_env.HOME }}/.zshrc"
   tasks:
-    - include: tasks/env.yml
-    - include: tasks/alias.yml
-    - include: tasks/zsh.yml
-    - include: tasks/tmux.yml
-    - include: tasks/util.yml
-    - include: tasks/git.yml
-    - include: tasks/docker.yml
-    - include: tasks/node.yml
-    - include: tasks/deno.yml
-    - include: tasks/bun.yml
-    - include: tasks/rust.yml
-    - include: tasks/zig.yml
-    - include: tasks/golang.yml
+    - include: tasks/env.ansibe.yml
+    - include: tasks/alias.ansibe.yml
+    # - include: tasks/zsh.ansibe.yml
+    # - include: tasks/tmux.ansibe.yml
+    # - include: tasks/util.ansibe.yml
+    # - include: tasks/git.ansibe.yml
+    # - include: tasks/docker.ansibe.yml
+    # - include: tasks/node.ansibe.yml
+    # - include: tasks/deno.ansibe.yml
+    # - include: tasks/bun.ansibe.yml
+    # - include: tasks/rust.ansibe.yml
+    # - include: tasks/zig.ansibe.yml
+    # - include: tasks/golang.ansibe.yml

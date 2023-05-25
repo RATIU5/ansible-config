@@ -1,0 +1,56 @@
+# structure setup
+
+- name: Ensure ~/.config directory exists
+  file:
+    path: "{{ CONFIG_DIR }}"
+    state: directory
+  tags:
+    - init
+
+- name: Ensure ~/.config/zsh directory exists
+  file:
+    path: "{{ CONFIG_DIR }}/zsh"
+    state: directory
+  tags:
+    - zsh
+
+- name: Ensure ~/.config/zsh/.zshrc file exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
+    state: file
+  tags:
+    - zsh
+
+- name: Ensure ~/.config/tmux directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/tmux"
+    state: directory
+  tags:
+    - tmux
+
+# zsh setup
+
+- name: Ensure zsh is installed
+  homebrew:
+    name: zsh
+    state: present
+  tags:
+    - zsh
+
+- name: Ensure zsh-autosuggestions is installed
+  homebrew:
+    name: zsh-autosuggestions
+    state: present
+  tags:
+    - zsh
+
+- name: Configure homebrew (Linux)
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: "alias gaa='git add -A'"
+    state: present
+    insertafter: EOF
+    create: yes
+  tags:
+    - alias
+    - git
