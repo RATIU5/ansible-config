@@ -35,6 +35,7 @@ install_brew() {
             echo "Unsupported package manager. Install dependencies manually."
             exit 1
         fi
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     fi
 
     echo "Installing Homebrew..."
