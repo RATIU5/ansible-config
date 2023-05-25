@@ -23,7 +23,6 @@ ensure_file_exists() {
 }
 
 install_brew() {
-    # Install dependencies for Linux
     if is_linux; then
         if command_exists apt; then
             apt update
