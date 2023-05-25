@@ -12,21 +12,14 @@
     path: "{{ CONFIG_DIR }}/zsh"
     state: directory
   tags:
-    - zsh
+    - init
 
 - name: Ensure ~/.config/zsh/.zshrc file exists
   file:
     path: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
     state: file
   tags:
-    - zsh
-
-- name: Ensure ~/.config/tmux directory exists
-  file:
-    path: "{{ ansible_env.HOME }}/.config/tmux"
-    state: directory
-  tags:
-    - tmux
+    - init
 
 # zsh setup
 
@@ -35,22 +28,50 @@
     name: zsh
     state: present
   tags:
-    - zsh
+    - init
 
 - name: Ensure zsh-autosuggestions is installed
   homebrew:
     name: zsh-autosuggestions
     state: present
   tags:
-    - zsh
+    - init
 
-- name: Configure homebrew (Linux)
+- name: Source zsh-autosuggestions
   lineinfile:
     path: "{{ zshrc }}"
-    line: "alias gaa='git add -A'"
+    line: 'source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
     state: present
     insertafter: EOF
     create: yes
   tags:
-    - alias
-    - git
+    - init
+
+- name: Skip global compinit
+  when: "'Linux' in ansible_system"
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: 'skip_global_compinit=1'
+    state: present
+    insertafter: EOF
+    create: yes
+  tags:
+    - init
+
+- name: Configure homebrew
+  when: "'Linux' in ansible_system"
+  lineinfile:
+    path: "{{ zshrc }}"
+    line: 'eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"'
+    state: present
+    insertafter: EOF
+    create: yes
+  tags:
+    - init
+
+- name: Eval brew shellenv
+  shell: eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+  args:
+    executable: /bin/zsh
+  tags:
+    - init

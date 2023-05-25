@@ -16,9 +16,9 @@
         - init
   vars:
     CONFIG_DIR: "{{ ansible_env.HOME }}/.config"
-    zshrc: "{{ ansible_env.HOME }}/.zshrc"
+    zshrc: "{{ CONFIG_DIR }}/zsh/.zshrc"
   tasks:
-    - include: tasks/env.ansibe.yml
+    - include: tasks/init.ansibe.yml
     - include: tasks/alias.ansibe.yml
     # - include: tasks/zsh.ansibe.yml
     # - include: tasks/tmux.ansibe.yml
