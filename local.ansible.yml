@@ -1,0 +1,32 @@
+---
+- hosts: localhost
+  pre_tasks:
+    - name: Update the package manager (Linux)
+      when: "'Linux' in ansible_system"
+      become: false
+      package:
+        update_cache: true
+        state: present
+    - name: Update homebrew (macOS)
+      when: "'Darwin' in ansible_system"
+      become: false
+      homebrew:
+        update_homebrew: yes
+      tags:
+        - init
+  vars:
+    zshrc: "{{ ansible_env.HOME }}/.zshrc"
+  tasks:
+    - include: tasks/env.yml
+    - include: tasks/alias.yml
+    - include: tasks/zsh.yml
+    - include: tasks/tmux.yml
+    - include: tasks/util.yml
+    - include: tasks/git.yml
+    - include: tasks/docker.yml
+    - include: tasks/node.yml
+    - include: tasks/deno.yml
+    - include: tasks/bun.yml
+    - include: tasks/rust.yml
+    - include: tasks/zig.yml
+    - include: tasks/golang.yml
