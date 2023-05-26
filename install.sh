@@ -38,7 +38,12 @@ install_brew() {
 
     echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+
+    if is_linux; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    elif is_mac; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
 }
 
 if ! is_mac && ! is_linux; then
