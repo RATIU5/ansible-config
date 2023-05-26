@@ -65,4 +65,4 @@ else
     echo "Ansible already installed."
 fi
 
-ansible-pull -U "https://github.com/RATIU5/ansible-config.git"
+ansible-pull -U "https://github.com/RATIU5/ansible-config.git" local.yml
