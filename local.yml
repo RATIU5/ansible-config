@@ -19,7 +19,14 @@
     zshrc: "{{ CONFIG_DIR }}/zsh/.zshrc"
   tasks:
     - import_tasks: tasks/init.yml
-    - import_tasks: tasks/alias.yml
+      when: "'Linux' in ansible_system"
+      vars:
+        HOMEBREW_PREFIX: "/home/linuxbrew/.linuxbrew"
+    - import_tasks: tasks/init.yml
+      when: "'Darwin' in ansible_system"
+      vars:
+        HOMEBREW_PREFIX: "/opt/homebrew"
+    # - import_tasks: tasks/alias.yml
     # - import_tasks: tasks/zsh.yml
     # - import_tasks: tasks/tmux.yml
     # - import_tasks: tasks/util.yml

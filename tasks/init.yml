@@ -1,23 +1,23 @@
 # structure setup
 
-- name: Ensure ~/.config directory exists
+- name: Ensure {{ CONFIG_DIR }} directory exists
   file:
     path: "{{ CONFIG_DIR }}"
     state: directory
   tags:
     - init
 
-- name: Ensure ~/.config/zsh directory exists
+- name: Ensure {{ CONFIG_DIR }}/zsh directory exists
   file:
     path: "{{ CONFIG_DIR }}/zsh"
     state: directory
   tags:
     - init
 
-- name: Ensure ~/.config/zsh/.zshrc file exists
+- name: Ensure {{ CONFIG_DIR }}/zsh/.zshrc file exists
   file:
-    path: "{{ ansible_env.HOME }}/.config/zsh/.zshrc"
-    state: file
+    path: "{{ CONFIG_DIR }}/zsh/.zshrc"
+    state: touch
   tags:
     - init
 
@@ -40,7 +40,7 @@
 - name: Source zsh-autosuggestions
   lineinfile:
     path: "{{ zshrc }}"
-    line: 'source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
+    line: 'source {{ HOMEBREW_PREFIX }}/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
     state: present
     insertafter: EOF
     create: yes
@@ -59,10 +59,9 @@
     - init
 
 - name: Configure homebrew
-  when: "'Linux' in ansible_system"
   lineinfile:
     path: "{{ zshrc }}"
-    line: 'eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"'
+    line: 'eval "$({{ HOMEBREW_PREFIX }}/bin/brew shellenv)"'
     state: present
     insertafter: EOF
     create: yes
@@ -70,7 +69,7 @@
     - init
 
 - name: Eval brew shellenv
-  shell: eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+  shell: 'eval "$({{ HOMEBREW_PREFIX }}/bin/brew shellenv)"'
   args:
     executable: /bin/zsh
   tags:
