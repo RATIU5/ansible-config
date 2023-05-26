@@ -1,5 +1,22 @@
 # structure setup
 
+- name: Ensure {{ ansible.env.HOME }}/.zshenv file exists
+  file:
+    path: "{{ ansible_env.HOME }}/.zshenv"
+    state: touch
+  tags:
+    - init
+
+- name: Ensure .zshenv has the location of the .zshrc file
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshenv"
+    line: 'export ZDOTDIR="{{ CONFIG_DIR }}/zsh"'
+    state: present
+    insertafter: EOF
+    create: yes
+  tags:
+    - init
+
 - name: Ensure {{ CONFIG_DIR }} directory exists
   file:
     path: "{{ CONFIG_DIR }}"
