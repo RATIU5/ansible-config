@@ -18,16 +18,16 @@
     CONFIG_DIR: "{{ ansible_env.HOME }}/.config"
     zshrc: "{{ CONFIG_DIR }}/zsh/.zshrc"
   tasks:
-    - include: tasks/init.yml
-    - include: tasks/alias.yml
-    # - include: tasks/zsh.yml
-    # - include: tasks/tmux.yml
-    # - include: tasks/util.yml
-    # - include: tasks/git.yml
-    # - include: tasks/docker.yml
-    # - include: tasks/node.yml
-    # - include: tasks/deno.yml
-    # - include: tasks/bun.yml
-    # - include: tasks/rust.yml
-    # - include: tasks/zig.yml
-    # - include: tasks/golang.yml
+    - import_tasks: tasks/init.yml
+    - import_tasks: tasks/alias.yml
+    # - import_tasks: tasks/zsh.yml
+    # - import_tasks: tasks/tmux.yml
+    # - import_tasks: tasks/util.yml
+    # - import_tasks: tasks/git.yml
+    # - import_tasks: tasks/docker.yml
+    # - import_tasks: tasks/node.yml
+    # - import_tasks: tasks/deno.yml
+    # - import_tasks: tasks/bun.yml
+    # - import_tasks: tasks/rust.yml
+    # - import_tasks: tasks/zig.yml
+    # - import_tasks: tasks/golang.yml
