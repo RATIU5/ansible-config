@@ -2,5 +2,6 @@
   community.general.homebrew:
     name: podman
     state: present
+  become: false
   tags:
     - podman

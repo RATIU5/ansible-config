@@ -2,6 +2,7 @@
   homebrew:
     name: ripgrep
     state: present
+  become: false
   tags:
     - util
 
@@ -9,5 +10,6 @@
   homebrew:
     name: stow
     state: present
+  become: false
   tags:
     - util

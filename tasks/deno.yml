@@ -18,5 +18,6 @@
   homebrew:
     name: deno
     state: present
+  become: false
   tags:
     - deno

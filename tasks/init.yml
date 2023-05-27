@@ -75,6 +75,7 @@
       community.general.homebrew:
         name: zsh
         state: present
+      become: false
       when: zsh_installed.rc != 0
 
 - name: Set zsh as the default shell
@@ -131,6 +132,7 @@
       community.general.homebrew:
         name: zsh-autosuggestions
         state: present
+      become: false
 
     - name: Source zsh-autosuggestions
       ansible.builtin.lineinfile:
@@ -149,6 +151,7 @@
       community.general.homebrew:
         name: starship
         state: present
+      become: false
 
     - name: Add starship to zshrc
       ansible.builtin.lineinfile:
@@ -167,6 +170,8 @@
       community.general.homebrew:
         name: koekeishiya/formulae/yabai
         state: present
+      become: false
 
     - name: Start yabai
       ansible.builtin.shell: yabai --start-service
+      ignore_errors: true

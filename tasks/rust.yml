@@ -10,6 +10,6 @@
   homebrew:
     name: rustup-init
     state: present
-  become: no
+  become: false
   tags:
     - rust

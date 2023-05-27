@@ -12,6 +12,6 @@
   homebrew:
     name: tmux
     state: present
-  become: no
+  become: false
   tags:
     - tmux

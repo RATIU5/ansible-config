@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  become: true
   name: RATIU5' playbook
   pre_tasks:
     - name: Update the package manager (Linux)

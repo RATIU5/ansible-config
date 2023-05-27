@@ -3,15 +3,6 @@
     name: go
     state: latest
   when: "'Darwin' in ansible_system"
-  become: no
-  tags:
-    - go
-
-- name: Install Go with package manager (Linux)
-  package:
-    name: golang
-    state: latest
-  when: "'Linux' in ansible_system"
-  become: yes
+  become: false
   tags:
     - go
