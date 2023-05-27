@@ -1,0 +1,6 @@
+- name: Install podman using Homebrew
+  community.general.homebrew:
+    name: podman
+    state: present
+  tags:
+    - podman
