@@ -15,15 +15,9 @@
         mode: "0o755"
 
     - name: Set git config username
-      community.general.git_config:
-        scope: global
-        name: user.name
-        value: "{{ git_user_name }}"
-        file: "{{ git_dir }}/config"
+      ansible.builtin.shell:
+        cmd: git config --file "{{ git_dir }}/config" user.name "{{ git_user_name }}"
 
     - name: Set git config email
-      community.general.git_config:
-        scope: global
-        name: user.email
-        value: "{{ git_user_email }}"
-        file: "{{ git_dir }}/config"
+      ansible.builtin.shell:
+        cmd: git config --file "{{ git_dir }}/config" user.email "{{ git_user_email }}"

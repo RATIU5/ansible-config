@@ -36,8 +36,6 @@
     - name: "Configure aliases"
       ansible.builtin.import_tasks: tasks/alias.yml
     # - import_tasks: tasks/tmux.yml
-    - name: "Configure zsh"
-      ansible.builtin.import_tasks: tasks/zsh.yml
     - name: "Configure git"
       ansible.builtin.import_tasks: tasks/git.yml
 
