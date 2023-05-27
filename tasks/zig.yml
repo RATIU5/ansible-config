@@ -1,6 +1,4 @@
-- name: Install Zig (macOS)
-  when: "'Darwin' in ansible_system"
+- name: Install Zig
   shell: brew install zig
-  become: no
   tags:
     - zig

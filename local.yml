@@ -38,8 +38,8 @@
     # - import_tasks: tasks/tmux.yml
     - name: "Configure git"
       ansible.builtin.import_tasks: tasks/git.yml
-
-    # - import_tasks: tasks/docker.yml
+    - name: "Configure docker"
+      ansible.builtin.import_tasks: tasks/docker.yml
     # - import_tasks: tasks/node.yml
     # - import_tasks: tasks/deno.yml
     # - import_tasks: tasks/bun.yml
