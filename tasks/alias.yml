@@ -5,175 +5,193 @@
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add gaa alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias gaa='git add -A'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add gco alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias gco='git checkout'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add gpl alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias gpl='git pull'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add gps alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias gps='git push'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add gst alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias gst='git status'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add gbr alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias gbr='git branch'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add gpo alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias gpo='git push origin'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add gdf alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias gdf='git diff'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add dev alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias dev='cd ~/Developer'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add doc alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias doc='cd ~/Documents'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add des alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias des='cd ~/Desktop'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add dow alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias dow='cd ~/Downloads'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add .. alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias ..='cd ..'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add ... alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias ...='cd ../..'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add .... alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias ....='cd ../../..'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add c alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias c='clear'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias
 
 - name: Add mkcd alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias mkcd='mkdir $1 && cd $1'"
     state: present
     insertafter: EOF
     create: yes
+    mode: "0o644"
   tags:
     - alias

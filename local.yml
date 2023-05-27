@@ -17,8 +17,8 @@
         - init
   vars:
     home: "{{ ansible_env.HOME }}"
-    config_dir: "{{ HOME }}/.config"
-    zshrc: "{{ CONFIG_DIR }}/zsh/.zshrc"
+    config_dir: "{{ home }}/.config"
+    zshrc: "{{ config_dir }}/zsh/.zshrc"
   tasks:
     - name: "Init (Linux)"
       ansible.builtin.import_tasks: tasks/init.yml
@@ -31,8 +31,7 @@
       vars:
         homebrew_prefix: "/opt/homebrew"
     - name: "Configure aliases"
-      import_tasks: tasks/alias.yml
-    # - import_tasks: tasks/zsh.yml
+      ansible.builtin.import_tasks: tasks/alias.yml
     # - import_tasks: tasks/tmux.yml
     # - import_tasks: tasks/util.yml
     # - import_tasks: tasks/git.yml
