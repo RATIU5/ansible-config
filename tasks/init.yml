@@ -1,92 +1,112 @@
 # structure setup
 
-- name: Ensure {{ ansible.env.HOME }}/.zshenv file exists
-  file:
-    path: "{{ ansible_env.HOME }}/.zshenv"
+- name: Ensure ~/.zshenv file exists
+  ansible.builtin.file:
+    path: "{{ HOME }}/.zshenv"
     state: touch
+    mode: '0o644'
+  tags:
+    - init
+
+- name: Ensure ~/.zshenv has XDG_CONFIG_HOME set
+  ansible.builtin.lineinfile:
+    path: "{{ HOME }}/.zshenv"
+    line: 'export XDG_CONFIG_HOME="{{ CONFIG_DIR }}"'
+    state: present
+    insertafter: EOF
+    create: true
+    mode: '0o644'
   tags:
     - init
 
 - name: Ensure .zshenv has the location of the .zshrc file
-  lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshenv"
+  ansible.builtin.lineinfile:
+    path: "{{ HOME }}/.zshenv"
     line: 'export ZDOTDIR="{{ CONFIG_DIR }}/zsh"'
     state: present
     insertafter: EOF
-    create: yes
+    create: true
+    mode: '0o644'
   tags:
     - init
 
-- name: Ensure {{ CONFIG_DIR }} directory exists
-  file:
+- name: Ensure ~/.config directory exists
+  ansible.builtin.file:
     path: "{{ CONFIG_DIR }}"
     state: directory
+    mode: '0o644'
   tags:
     - init
 
-- name: Ensure {{ CONFIG_DIR }}/zsh directory exists
-  file:
+- name: Ensure ~/.config/zsh directory exists
+  ansible.builtin.file:
     path: "{{ CONFIG_DIR }}/zsh"
     state: directory
+    mode: '0o644'
   tags:
     - init
 
-- name: Ensure {{ CONFIG_DIR }}/zsh/.zshrc file exists
-  file:
+- name: Ensure ~/.config/zsh/.zshrc file exists
+  ansible.builtin.file:
     path: "{{ CONFIG_DIR }}/zsh/.zshrc"
     state: touch
+    mode: '0o644'
   tags:
     - init
 
 # zsh setup
 
 - name: Ensure zsh is installed
-  homebrew:
+  community.general.homebrew:
     name: zsh
     state: present
   tags:
     - init
 
 - name: Ensure zsh-autosuggestions is installed
-  homebrew:
+  community.general.homebrew:
     name: zsh-autosuggestions
     state: present
   tags:
     - init
 
 - name: Source zsh-autosuggestions
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: 'source {{ HOMEBREW_PREFIX }}/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
     state: present
     insertafter: EOF
-    create: yes
+    create: true
+    mode: '0o644'
   tags:
     - init
 
 - name: Skip global compinit
   when: "'Linux' in ansible_system"
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: 'skip_global_compinit=1'
     state: present
     insertafter: EOF
-    create: yes
+    create: true
+    mode: '0o644'
   tags:
     - init
 
 - name: Configure homebrew
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: 'eval "$({{ HOMEBREW_PREFIX }}/bin/brew shellenv)"'
     state: present
     insertafter: EOF
-    create: yes
+    create: true
+    mode: '0o644'
   tags:
     - init
 
 - name: Eval brew shellenv
-  shell: 'eval "$({{ HOMEBREW_PREFIX }}/bin/brew shellenv)"'
+  ansible.builtin.shell: 'eval "$({{ HOMEBREW_PREFIX }}/bin/brew shellenv)"'
+  mode: '0o644'
   args:
     executable: /bin/zsh
   tags:

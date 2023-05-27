@@ -1,31 +1,35 @@
 ---
 - hosts: localhost
+  name: RATIU5' playbook
   pre_tasks:
     - name: Update the package manager (Linux)
       when: "'Linux' in ansible_system"
       become: false
-      package:
+      ansible.builtin.package:
         update_cache: true
         state: present
     - name: Update homebrew (macOS)
       when: "'Darwin' in ansible_system"
       become: false
-      homebrew:
-        update_homebrew: yes
+      community.general.homebrew:
+        update_homebrew: true
       tags:
         - init
   vars:
-    CONFIG_DIR: "{{ ansible_env.HOME }}/.config"
+    home: "{{ ansible_env.HOME }}"
+    config_dir: "{{ HOME }}/.config"
     zshrc: "{{ CONFIG_DIR }}/zsh/.zshrc"
   tasks:
-    - import_tasks: tasks/init.yml
+    - name: "Init (Linux)"
+      ansible.builtin.import_tasks: tasks/init.yml
       when: "'Linux' in ansible_system"
       vars:
-        HOMEBREW_PREFIX: "/home/linuxbrew/.linuxbrew"
-    - import_tasks: tasks/init.yml
+        homebrew_prefix: "/home/linuxbrew/.linuxbrew"
+    - name: "Init (macOS)"
+      ansible.builtin.import_tasks: tasks/init.yml
       when: "'Darwin' in ansible_system"
       vars:
-        HOMEBREW_PREFIX: "/opt/homebrew"
+        homebrew_prefix: "/opt/homebrew"
     # - import_tasks: tasks/alias.yml
     # - import_tasks: tasks/zsh.yml
     # - import_tasks: tasks/tmux.yml
