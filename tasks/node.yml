@@ -1,34 +1,17 @@
-- name: Download n node version manager (Linux)
-  when: "'Linux' in ansible_system"
-  get_url:
-    url: https://raw.githubusercontent.com/tj/n/master/bin/n
-    dest: /usr/local/bin/n
-    mode: "0755" # make the script executable
-  tags:
-    - node
-
-- name: Create n version folder
-  when: "'Linux' in ansible_system"
-  file:
-    path: /usr/local/n/versions
-    state: directory
-  become: yes
-  tags:
-    - node
-
-- name: Install n node version manager (macOS)
-  when: "'Darwin' in ansible_system"
-  homebrew:
+- name: Install n node version manager
+  community.general.homebrew:
     name: n
     state: present
-  become: no
+  become: false
   tags:
     - node
 
-- name: Install Node.js version 20
-  when: "'Linux' in ansible_system"
-  command:
-    cmd: n 20
-  become: yes
+- name: Install Node.js version 16
+  ansible.builtin.shell: n 16
+  tags:
+    - node
+
+- name: Configure npm cache directory
+  ansible.builtin.shell: npm config set cache {{ cache_dir }}/npm --global
   tags:
     - node

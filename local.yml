@@ -18,29 +18,31 @@
   vars:
     home: "{{ ansible_env.HOME }}"
     config_dir: "{{ home }}/.config"
+    cache_dir: "{{ home }}/.cache"
     zshrc: "{{ config_dir }}/zsh/.zshrc"
     git_dir: "{{ config_dir }}/git"
     git_user_name: "RATIU5"
     git_user_email: "jcmemmott20@outlook.com"
   tasks:
-    - name: "Init (Linux)"
+    - name: Init (Linux)
       ansible.builtin.import_tasks: tasks/init.yml
       when: "'Linux' in ansible_system"
       vars:
-        homebrew_prefix: "/home/linuxbrew/.linuxbrew"
-    - name: "Init (macOS)"
+        homebrew_prefix: /home/linuxbrew/.linuxbrew
+    - name: Init (macOS)
       ansible.builtin.import_tasks: tasks/init.yml
       when: "'Darwin' in ansible_system"
       vars:
-        homebrew_prefix: "/opt/homebrew"
-    - name: "Configure aliases"
+        homebrew_prefix: /opt/homebrew
+    - name: Configure aliases
       ansible.builtin.import_tasks: tasks/alias.yml
     # - import_tasks: tasks/tmux.yml
-    - name: "Configure git"
+    - name: Configure git
       ansible.builtin.import_tasks: tasks/git.yml
-    - name: "Configure podman"
+    - name: Configure podman
       ansible.builtin.import_tasks: tasks/podman.yml
-    # - import_tasks: tasks/node.yml
+    - name: Install node
+      ansible.builtin.import_tasks: tasks/node.yml
     # - import_tasks: tasks/deno.yml
     # - import_tasks: tasks/bun.yml
     # - import_tasks: tasks/rust.yml
