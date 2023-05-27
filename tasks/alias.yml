@@ -1,5 +1,5 @@
 - name: Add gcm alias
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ zshrc }}"
     line: "alias gcm='git commit -m'"
     state: present
@@ -7,7 +7,6 @@
     create: yes
   tags:
     - alias
-    - git
 
 - name: Add gaa alias
   lineinfile:
@@ -18,7 +17,6 @@
     create: yes
   tags:
     - alias
-    - git
 
 - name: Add gco alias
   lineinfile:
@@ -29,7 +27,6 @@
     create: yes
   tags:
     - alias
-    - git
 
 - name: Add gpl alias
   lineinfile:
@@ -40,7 +37,6 @@
     create: yes
   tags:
     - alias
-    - git
 
 - name: Add gps alias
   lineinfile:
@@ -51,7 +47,6 @@
     create: yes
   tags:
     - alias
-    - git
 
 - name: Add gst alias
   lineinfile:
@@ -62,7 +57,6 @@
     create: yes
   tags:
     - alias
-    - git
 
 - name: Add gbr alias
   lineinfile:
@@ -73,7 +67,6 @@
     create: yes
   tags:
     - alias
-    - git
 
 - name: Add gpo alias
   lineinfile:
@@ -84,7 +77,6 @@
     create: yes
   tags:
     - alias
-    - git
 
 - name: Add gdf alias
   lineinfile:
@@ -95,7 +87,6 @@
     create: yes
   tags:
     - alias
-    - git
 
 - name: Add dev alias
   lineinfile:

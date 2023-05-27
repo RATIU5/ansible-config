@@ -30,7 +30,8 @@
       when: "'Darwin' in ansible_system"
       vars:
         homebrew_prefix: "/opt/homebrew"
-    # - import_tasks: tasks/alias.yml
+    - name: "Configure aliases"
+      import_tasks: tasks/alias.yml
     # - import_tasks: tasks/zsh.yml
     # - import_tasks: tasks/tmux.yml
     # - import_tasks: tasks/util.yml
