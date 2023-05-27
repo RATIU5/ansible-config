@@ -19,6 +19,9 @@
     home: "{{ ansible_env.HOME }}"
     config_dir: "{{ home }}/.config"
     zshrc: "{{ config_dir }}/zsh/.zshrc"
+    git_dir: "{{ config_dir }}/git"
+    git_user_name: "RATIU5"
+    git_user_email: "jcmemmott20@outlook.com"
   tasks:
     - name: "Init (Linux)"
       ansible.builtin.import_tasks: tasks/init.yml
@@ -35,7 +38,9 @@
     # - import_tasks: tasks/tmux.yml
     - name: "Configure zsh"
       ansible.builtin.import_tasks: tasks/zsh.yml
-    # - import_tasks: tasks/git.yml
+    - name: "Configure git"
+      ansible.builtin.import_tasks: tasks/git.yml
+
     # - import_tasks: tasks/docker.yml
     # - import_tasks: tasks/node.yml
     # - import_tasks: tasks/deno.yml

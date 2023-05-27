@@ -1,35 +1,29 @@
-- name: Install git (macOS)
-  homebrew:
-    name: git
-    state: present
-  when: "'Darwin' in ansible_system"
-  become: no
+- name: Setup git
   tags:
     - git
+  block:
+    - name: Git config folder exists
+      ansible.builtin.file:
+        path: "{{ git_dir }}"
+        state: directory
+        mode: "0o755"
 
-- name: Install gh (macOS)
-  homebrew:
-    name: gh
-    state: present
-  when: "'Darwin' in ansible_system"
-  become: no
-  tags:
-    - git
+    - name: Git config file exists
+      ansible.builtin.file:
+        path: "{{ git_dir }}/config"
+        state: touch
+        mode: "0o755"
 
-- name: Install git (Linux)
-  package:
-    name: git
-    state: present
-  when: "'Linux' in ansible_system"
-  become: yes
-  tags:
-    - git
+    - name: Set git config username
+      community.general.git_config:
+        scope: global
+        name: user.name
+        value: "{{ git_user_name }}"
+        file: "{{ git_dir }}/config"
 
-- name: Install gh (Linux)
-  package:
-    name: gh
-    state: present
-  when: "'Linux' in ansible_system"
-  become: yes
-  tags:
-    - git
+    - name: Set git config email
+      community.general.git_config:
+        scope: global
+        name: user.email
+        value: "{{ git_user_email }}"
+        file: "{{ git_dir }}/config"
