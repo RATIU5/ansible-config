@@ -5,7 +5,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -16,7 +16,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -27,7 +27,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -38,7 +38,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -49,7 +49,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -60,7 +60,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -71,7 +71,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -82,7 +82,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -93,7 +93,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -104,7 +104,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -115,7 +115,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -126,7 +126,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -137,7 +137,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -148,7 +148,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -159,7 +159,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -170,7 +170,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -181,7 +181,7 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias
 
@@ -192,6 +192,6 @@
     state: present
     insertafter: EOF
     create: yes
-    mode: "0o644"
+    mode: "0o755"
   tags:
     - alias

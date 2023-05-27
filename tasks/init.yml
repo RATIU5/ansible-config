@@ -6,7 +6,7 @@
       ansible.builtin.file:
         path: "{{ home }}/.zshenv"
         state: touch
-        mode: "0o644"
+        mode: "0o755"
       tags:
         - init
 
@@ -14,7 +14,7 @@
       ansible.builtin.file:
         path: "{{ config_dir }}"
         state: directory
-        mode: "0o644"
+        mode: "0o755"
       tags:
         - init
 
@@ -22,7 +22,7 @@
       ansible.builtin.file:
         path: "{{ config_dir }}/zsh"
         state: directory
-        mode: "0o644"
+        mode: "0o755"
       tags:
         - init
 
@@ -30,7 +30,7 @@
       ansible.builtin.file:
         path: "{{ config_dir }}/zsh/.zshrc"
         state: touch
-        mode: "0o644"
+        mode: "0o755"
       tags:
         - init
 
@@ -45,7 +45,7 @@
         state: present
         insertafter: EOF
         create: true
-        mode: "0o644"
+        mode: "0o755"
       tags:
         - init
 
@@ -56,7 +56,7 @@
         state: present
         insertafter: EOF
         create: true
-        mode: "0o644"
+        mode: "0o755"
       tags:
         - init
 
@@ -103,7 +103,7 @@
         state: present
         insertafter: EOF
         create: true
-        mode: "0o644"
+        mode: "0o755"
       tags:
         - init
 
@@ -114,7 +114,7 @@
         state: present
         insertafter: EOF
         create: true
-        mode: "0o644"
+        mode: "0o755"
       tags:
         - init
 
@@ -141,7 +141,7 @@
         state: present
         insertafter: EOF
         create: true
-        mode: "0o644"
+        mode: "0o755"
 
 - name: Install starship
   block:
@@ -158,6 +158,6 @@
         line: 'eval "$(starship init zsh)"'
         state: present
         create: true
-        mode: "0o644"
+        mode: "0o755"
       tags:
         - zsh
