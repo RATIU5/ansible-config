@@ -146,7 +146,7 @@
 - name: Install starship
   block:
     - name: Install starship via homebrew
-      commuity.general.homebrew:
+      community.general.homebrew:
         name: starship
         state: present
       tags:
