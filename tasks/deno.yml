@@ -1,21 +1,5 @@
-- name: Install unzip (Linux)
-  when: "'Linux' in ansible_system"
-  package:
-    name: unzip
-    state: present
-  tags:
-    - deno
-
-- name: Install Deno (Linux)
-  when: "'Linux' in ansible_system"
-  shell: curl -fsSL https://deno.land/x/install/install.sh | sh
-  ignore_errors: true
-  tags:
-    - deno
-
-- name: Install Deno (macOS)
-  when: "'Darwin' in ansible_system"
-  homebrew:
+- name: Install Deno
+  community.general.homebrew:
     name: deno
     state: present
   become: false

@@ -20,6 +20,8 @@
     home: "{{ ansible_env.HOME }}"
     config_dir: "{{ home }}/.config"
     cache_dir: "{{ home }}/.cache"
+    data_dir: "{{ home }}/.local/share"
+    bin_dir: "{{ home }}/.local/bin"
     zshrc: "{{ config_dir }}/zsh/.zshrc"
     git_dir: "{{ config_dir }}/git"
     git_user_name: "RATIU5"
@@ -44,8 +46,10 @@
       ansible.builtin.import_tasks: tasks/podman.yml
     - name: Install node
       ansible.builtin.import_tasks: tasks/node.yml
-    # - import_tasks: tasks/deno.yml
-    # - import_tasks: tasks/bun.yml
+    - name: Install deno
+      ansible.builtin.import_tasks: tasks/deno.yml
+    - name: Install bun
+      ansible.builtin.import_tasks: tasks/bun.yml
     # - import_tasks: tasks/rust.yml
     # - import_tasks: tasks/zig.yml
     # - import_tasks: tasks/golang.yml

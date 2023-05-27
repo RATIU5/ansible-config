@@ -49,6 +49,33 @@
       tags:
         - init
 
+    - name: Ensure ~/.zshenv has XDG_DATA_HOME set
+      ansible.builtin.lineinfile:
+        path: "{{ home }}/.zshenv"
+        line: 'export XDG_DATA_HOME="{{ data_dir }}"'
+        state: present
+        insertafter: EOF
+        create: true
+        mode: "0o755"
+
+    - name: Ensure ~/.zshenv has XDG_BIN_HOME set
+      ansible.builtin.lineinfile:
+        path: "{{ home }}/.zshenv"
+        line: 'export XDG_BIN_HOME="{{ bin_dir }}"'
+        state: present
+        insertafter: EOF
+        create: true
+        mode: "0o755"
+
+    - name: Ensure ~/.zshenv has XDG_CACHE_HOME set
+      ansible.builtin.lineinfile:
+        path: "{{ home }}/.zshenv"
+        line: 'export XDG_CACHE_HOME="{{ cache_dir }}"'
+        state: present
+        insertafter: EOF
+        create: true
+        mode: "0o755"
+
     - name: Ensure .zshenv has the location of the .zshrc file
       ansible.builtin.lineinfile:
         path: "{{ home }}/.zshenv"
