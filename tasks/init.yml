@@ -67,7 +67,7 @@
     - init
   block:
     - name: Check if zsh is installed
-      ansible.builtin.command: brew list --formula | grep -w zsh | grep '^zsh$'
+      ansible.builtin.shell: which zsh
       register: zsh_installed
       ignore_errors: true
 
@@ -82,15 +82,15 @@
     - init
   block:
     - name: Retrieve shell path
-      ansible.builtin.command: echo $SHELL
+      ansible.builtin.shell: echo $SHELL
       register: shell
 
     - name: Retrieve zsh path
-      ansible.builtin.command: which zsh
+      ansible.builtin.shell: which zsh
       register: zsh_path
 
     - name: Set zsh as the default shell
-      ansible.builtin.command: chsh -s "{{ zsh_path.stdout }}"
+      ansible.builtin.shell: chsh -s "{{ zsh_path.stdout }}"
       when: shell.stdout != zsh_path.stdout
 
 - name: Configure homebrew
@@ -119,9 +119,7 @@
         - init
 
     - name: Eval brew shellenv
-      ansible.builtin.command: 'eval "$({{ homebrew_prefix }}/bin/brew shellenv)"'
-      args:
-        executable: /bin/zsh
+      ansible.builtin.shell: 'eval "$({{ homebrew_prefix }}/bin/brew shellenv)"'
       tags:
         - init
 
@@ -144,13 +142,13 @@
         mode: "0o755"
 
 - name: Install starship
+  tags:
+    - init
   block:
     - name: Install starship via homebrew
       community.general.homebrew:
         name: starship
         state: present
-      tags:
-        - zsh
 
     - name: Add starship to zshrc
       ansible.builtin.lineinfile:
@@ -159,5 +157,16 @@
         state: present
         create: true
         mode: "0o755"
-      tags:
-        - zsh
+
+- name: Setup Yabai window tiling manager
+  when: "'Darwin' in ansible_system"
+  tags:
+    - init
+  block:
+    - name: Install yabai via homebrew
+      community.general.homebrew:
+        name: koekeishiya/formulae/yabai
+        state: present
+
+    - name: Start yabai
+      ansible.builtin.shell: yabai --start-service
