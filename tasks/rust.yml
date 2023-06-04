@@ -1,12 +1,4 @@
-- name: Install Rust tools (Linux)
-  when: "'Linux' in ansible_system"
-  shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  become: yes
-  tags:
-    - rust
-
-- name: Install Rust tools (macOS)
-  when: "'Darwin' in ansible_system"
+- name: Install Rust tools
   homebrew:
     name: rustup-init
     state: present
