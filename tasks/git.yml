@@ -6,13 +6,13 @@
       ansible.builtin.file:
         path: "{{ git_dir }}"
         state: directory
-        mode: "0o755"
+        mode: "0o777"
 
     - name: Git config file exists
       ansible.builtin.file:
         path: "{{ git_dir }}/config"
         state: touch
-        mode: "0o755"
+        mode: "0o777"
 
     - name: Set git config username
       ansible.builtin.shell:

@@ -1,8 +1,7 @@
-- name: Install Go with Homebrew (macOS)
+- name: Install Go
   homebrew:
     name: go
     state: latest
-  when: "'Darwin' in ansible_system"
   become: false
   tags:
     - go

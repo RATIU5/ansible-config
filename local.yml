@@ -3,53 +3,56 @@
   become: true
   name: RATIU5' playbook
   pre_tasks:
-    - name: Update the package manager (Linux)
-      when: "'Linux' in ansible_system"
-      become: false
-      ansible.builtin.package:
-        update_cache: true
-        state: present
-    - name: Update homebrew (macOS)
-      when: "'Darwin' in ansible_system"
-      become: false
-      community.general.homebrew:
-        update_homebrew: true
-      tags:
-        - init
+      - name: Update the package manager (Linux)
+        when: "'Linux' in ansible_system"
+        become: false
+        ansible.builtin.package:
+            update_cache: true
+            state: present
+      - name: Update homebrew (macOS)
+        when: "'Darwin' in ansible_system"
+        become: false
+        community.general.homebrew:
+            update_homebrew: true
+        tags:
+            - init
   vars:
-    home: "{{ ansible_env.HOME }}"
-    config_dir: "{{ home }}/.config"
-    cache_dir: "{{ home }}/.cache"
-    data_dir: "{{ home }}/.local/share"
-    bin_dir: "{{ home }}/.local/bin"
-    zshrc: "{{ config_dir }}/zsh/.zshrc"
-    git_dir: "{{ config_dir }}/git"
-    git_user_name: "RATIU5"
-    git_user_email: "jcmemmott20@outlook.com"
+      home: "{{ ansible_env.HOME }}"
+      config_dir: "{{ home }}/.config"
+      cache_dir: "{{ home }}/.cache"
+      data_dir: "{{ home }}/.local/share"
+      bin_dir: "{{ home }}/.local/bin"
+      zshrc: "{{ config_dir }}/zsh/.zshrc"
+      git_dir: "{{ config_dir }}/git"
+      git_user_name: "RATIU5"
+      git_user_email: "jcmemmott20@outlook.com"
   tasks:
-    - name: Init (Linux)
-      ansible.builtin.import_tasks: tasks/init.yml
-      when: "'Linux' in ansible_system"
-      vars:
-        homebrew_prefix: /home/linuxbrew/.linuxbrew
-    - name: Init (macOS)
-      ansible.builtin.import_tasks: tasks/init.yml
-      when: "'Darwin' in ansible_system"
-      vars:
-        homebrew_prefix: /opt/homebrew
-    - name: Configure aliases
-      ansible.builtin.import_tasks: tasks/alias.yml
-    # - import_tasks: tasks/tmux.yml
-    - name: Configure git
-      ansible.builtin.import_tasks: tasks/git.yml
-    - name: Configure podman
-      ansible.builtin.import_tasks: tasks/podman.yml
-    - name: Install node
-      ansible.builtin.import_tasks: tasks/node.yml
-    - name: Install deno
-      ansible.builtin.import_tasks: tasks/deno.yml
-    - name: Install bun
-      ansible.builtin.import_tasks: tasks/bun.yml
-    # - import_tasks: tasks/rust.yml
-    # - import_tasks: tasks/zig.yml
-    # - import_tasks: tasks/golang.yml
+      - name: Init (Linux)
+        ansible.builtin.import_tasks: tasks/init.yml
+        when: "'Linux' in ansible_system"
+        vars:
+            homebrew_prefix: /home/linuxbrew/.linuxbrew
+      - name: Init (macOS)
+        ansible.builtin.import_tasks: tasks/init.yml
+        when: "'Darwin' in ansible_system"
+        vars:
+            homebrew_prefix: /opt/homebrew
+      - name: Configure aliases
+        ansible.builtin.import_tasks: tasks/alias.yml
+      # - import_tasks: tasks/tmux.yml
+      - name: Configure git
+        ansible.builtin.import_tasks: tasks/git.yml
+      - name: Configure podman
+        ansible.builtin.import_tasks: tasks/podman.yml
+      - name: Install node
+        ansible.builtin.import_tasks: tasks/node.yml
+      - name: Install deno
+        ansible.builtin.import_tasks: tasks/deno.yml
+      - name: Install bun
+        ansible.builtin.import_tasks: tasks/bun.yml
+      - name: Install rust
+        ansible.builtin.import_tasks: tasks/rust.yml
+      - name: Install zig
+        ansible.builtin.import_tasks: tasks/zig.yml
+      - name: Install golang
+        ansible.builtin.import_tasks: tasks/golang.yml

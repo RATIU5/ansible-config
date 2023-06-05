@@ -1,4 +1,7 @@
 - name: Install Zig
-  shell: brew install zig
+  homebrew:
+    name: zig
+    state: present
+  become: false
   tags:
     - zig

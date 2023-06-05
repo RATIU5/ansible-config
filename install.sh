@@ -31,7 +31,7 @@ install_brew() {
             yum -y groupinstall 'Development Tools'
             yum -y install git
         else
-            echo "Unsupported package manager. Install dependencies manually."
+            echo "Unsupported package manager. Install Homebrew manually."
             exit 1
         fi
     fi
