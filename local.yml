@@ -39,7 +39,8 @@
             homebrew_prefix: /opt/homebrew
       - name: Configure aliases
         ansible.builtin.import_tasks: tasks/alias.yml
-      # - import_tasks: tasks/tmux.yml
+      - name: Install Window Management
+        ansible.builtin.import_tasks: tasks/windows.yml
       - name: Configure git
         ansible.builtin.import_tasks: tasks/git.yml
       - name: Configure podman
@@ -56,3 +57,7 @@
         ansible.builtin.import_tasks: tasks/zig.yml
       - name: Install golang
         ansible.builtin.import_tasks: tasks/golang.yml
+      - name: Install Cask apps
+        ansible.builtin.import_tasks: tasks/caskapps.yml
+      - name: Install App Store apps
+        ansible.builtin.import_tasks: tasks/macapps.yml
