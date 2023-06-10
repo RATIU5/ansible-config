@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  become: true
+  become: false
   name: RATIU5' playbook
   pre_tasks:
       - name: Update the package manager (Linux)
@@ -24,6 +24,7 @@
       bin_dir: "{{ home }}/.local/bin"
       zshrc: "{{ config_dir }}/zsh/.zshrc"
       git_dir: "{{ config_dir }}/git"
+      user: "ratiu5"
       git_user_name: "RATIU5"
       git_user_email: "jcmemmott20@outlook.com"
   tasks:
@@ -39,6 +40,8 @@
             homebrew_prefix: /opt/homebrew
       - name: Configure aliases
         ansible.builtin.import_tasks: tasks/alias.yml
+      - name: Configure settings
+        ansible.builtin.import_tasks: tasks/settings.yml
       - name: Install Window Management
         ansible.builtin.import_tasks: tasks/windows.yml
       - name: Configure git

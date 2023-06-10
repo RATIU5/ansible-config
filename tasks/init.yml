@@ -1,6 +1,8 @@
 # structure setup
 
 - name: "Create directory structure"
+  become: yes
+  become_user: "{{ user }}"
   block:
     - name: Ensure ~/.zshenv file exists
       ansible.builtin.file:

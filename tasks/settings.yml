@@ -1,0 +1,189 @@
+- name: Set general settings (mac)
+  when: '"Darwin" in ansible_system'
+  block:
+    - name: Set Dock to auto-hide
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: autohide
+        type: bool
+        value: true
+      become: true
+      tags:
+        - settings
+    - name: Set Dock delay to 0
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: autohide-delay
+        type: float
+        value: 0
+      become: true
+      tags:
+        - settings
+    - name: Set Dock animation to 0
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: autohide-time-modifier
+        type: float
+        value: 0
+      become: true
+      tags:
+        - settings
+    - name: Set Dock icon size to 36
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: tilesize
+        type: int
+        value: 36
+      become: true
+      tags:
+        - settings
+    - name: Set Dock magnification to 0
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: magnification
+        type: bool
+        value: false
+      become: true
+      tags:
+        - settings
+    - name: Set Dock to the bottom
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: orientation
+        type: string
+        value: bottom
+      become: true
+      tags:
+        - settings
+    - name: Restart Dock
+      ansible.builtin.shell: killall Dock
+      become_user: "{{ user }}"
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to show all file extensions
+      community.general.osx_defaults:
+        domain: NSGlobalDomain
+        key: AppleShowAllExtensions
+        type: bool
+        value: true
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to show hidden files
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: AppleShowAllFiles
+        type: bool
+        value: true
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to show path bar
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: ShowPathbar
+        type: bool
+        value: true
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to show status bar
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: ShowStatusBar
+        type: bool
+        value: true
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to hide iCloud Drive
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: SidebarShowingiCloudDesktop
+        type: bool
+        value: false
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to hide AirDrop favorite
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: SidebarShowingAirDrop
+        type: bool
+        value: false
+      tags:
+        - settings
+    - name: Set Finder to hide Recents favorite
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: SidebarShowingRecents
+        type: bool
+        value: false
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to show home directory as the default
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: NewWindowTarget
+        type: string
+        value: PfHm
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to show home directory as favorites
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: SidebarPlacesList
+        type: array-add
+        value: PfHm
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to show Developer directory as favorites
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: SidebarPlacesList
+        type: array-add
+        value: PfDe
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to show Pictures directory as favorites
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: SidebarPlacesList
+        type: array-add
+        value: PfPc
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to show Movies directory as favorites
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: SidebarPlacesList
+        type: array-add
+        value: PfVM
+      become: true
+      tags:
+        - settings
+    - name: Set Finder to hide tags on sidebar
+      community.general.osx_defaults:
+        domain: com.apple.finder
+        key: ShowRecentTags
+        type: bool
+        value: false
+      become: true
+      tags:
+        - settings
+
+    - name: Disable animations when opening and closing windows
+      community.general.osx_defaults:
+        domain: NSGlobalDomain
+        key: NSAutomaticWindowAnimationsEnabled
+        type: bool
+        value: false
+      become: true
+      tags:
+        - settings
