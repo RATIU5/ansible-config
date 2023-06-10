@@ -211,18 +211,3 @@
         state: present
         create: true
         mode: "0o777"
-
-- name: Setup Yabai window tiling manager
-  when: "'Darwin' in ansible_system"
-  tags:
-    - init
-  block:
-    - name: Install yabai via homebrew
-      community.general.homebrew:
-        name: koekeishiya/formulae/yabai
-        state: present
-      become: false
-
-    - name: Start yabai
-      ansible.builtin.shell: yabai --start-service
-      ignore_errors: true
