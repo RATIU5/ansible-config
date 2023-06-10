@@ -1,0 +1,94 @@
+- name: Install cask apps
+  when: "'Darwin' in ansible_system"
+  tags:
+    - caskapps
+  block:
+    - name: Install Discord
+      community.general.homebrew_cask:
+        name: discord
+        state: present
+      become: false
+
+    - name: Install Slack
+      community.general.homebrew_cask:
+        name: slack
+        state: present
+      become: false
+
+    - name: Install Spotify
+      community.general.homebrew_cask:
+        name: spotify
+        state: present
+      become: false
+
+    - name: Install Visual Studio Code
+      community.general.homebrew_cask:
+        name: visual-studio-code
+        state: present
+      become: false
+
+    - name: Install Docker
+      community.general.homebrew_cask:
+        name: docker
+        state: present
+      become: false
+
+    - name: Install Raindrop.io
+      community.general.homebrew_cask:
+        name: raindropio
+        state: present
+      become: false
+
+    - name: Install Notion
+      community.general.homebrew_cask:
+        name: notion
+        state: present
+      become: false
+
+    - name: Install AppCleaner
+      community.general.homebrew_cask:
+        name: appcleaner
+        state: present
+      become: false
+
+    - name: Install the Unarchiver
+      community.general.homebrew_cask:
+        name: the-unarchiver
+        state: present
+      become: false
+
+    - name: Install Radio Silence
+      community.general.homebrew_cask:
+        name: radio-silence
+        state: present
+      become: false
+
+    - name: Install 1Password
+      community.general.homebrew_cask:
+        name: 1password
+        state: present
+      become: false
+
+    - name: Install Alfred
+      community.general.homebrew_cask:
+        name: alfred
+        state: present
+      become: false
+
+    - name: Install Alacritty
+      community.general.homebrew_cask:
+        name: alacritty
+        state: present
+      become: false
+
+    - name: Install Arc Browser
+      community.general.homebrew_cask:
+        name: arc
+        state: present
+      become: false
+
+    - name: Install OBS
+      community.general.homebrew_cask:
+        name: obs
+        state: present
+      become: false

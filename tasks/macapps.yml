@@ -1,0 +1,52 @@
+- name: Install Mac App Store apps
+  when: "'Darwin' in ansible_system"
+  tags:
+    - masapps
+  block:
+    - name: Install mas
+      community.general.homebrew:
+        name: mas
+        state: present
+      become: false
+
+    - name: Install Pixelmator Pro
+      community.general.mas:
+        id: 1289583905
+        state: present
+      become: false
+
+    - name: Install Pages
+      community.general.mas:
+        id: 409201541
+        state: present
+      become: false
+
+    - name: Install Keynote
+      community.general.mas:
+        id: 409183694
+        state: present
+      become: false
+
+    - name: Install Numbers
+      community.general.mas:
+        id: 409203825
+        state: present
+      become: false
+
+    - name: Install Logic Pro X
+      community.general.mas:
+        id: 634148309
+        state: present
+      become: false
+
+    - name: Install Final Cut Pro
+      community.general.mas:
+        id: 424389933
+        state: present
+      become: false
+
+    - name: Install Motion
+      community.general.mas:
+        id: 434290957
+        state: present
+      become: false
