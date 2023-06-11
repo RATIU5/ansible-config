@@ -113,6 +113,17 @@
       tags:
         - init
 
+    - name: Ensure .zshenv has HISTFILE set
+      ansible.builtin.lineinfile:
+        path: "{{ home }}/.zshenv"
+        line: 'export HISTFILE="{{ config_dir }}/zsh/history"'
+        state: present
+        insertafter: EOF
+        create: true
+        mode: "0o777"
+      tags:
+        - init
+
 # zsh setup
 
 - name: Install zsh if it's not already installed
