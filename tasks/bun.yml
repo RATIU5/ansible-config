@@ -3,6 +3,7 @@
     name: oven-sh/bun
     state: present
   become: false
+  become_user: "{{ user }}"
   tags:
     - bun
 
@@ -11,5 +12,6 @@
     name: bun
     state: present
   become: false
+  become_user: "{{ user }}"
   tags:
     - bun

@@ -8,45 +8,53 @@
         name: mas
         state: present
       become: false
+      become_user: "{{ user }}"
 
     - name: Install Pixelmator Pro
       community.general.mas:
         id: 1289583905
         state: present
       become: false
+      become_user: "{{ user }}"
 
     - name: Install Pages
       community.general.mas:
         id: 409201541
         state: present
       become: false
+      become_user: "{{ user }}"
 
     - name: Install Keynote
       community.general.mas:
         id: 409183694
         state: present
       become: false
+      become_user: "{{ user }}"
 
     - name: Install Numbers
       community.general.mas:
         id: 409203825
         state: present
       become: false
+      become_user: "{{ user }}"
 
     - name: Install Logic Pro X
       community.general.mas:
         id: 634148309
         state: present
       become: false
+      become_user: "{{ user }}"
 
     - name: Install Final Cut Pro
       community.general.mas:
         id: 424389933
         state: present
       become: false
+      become_user: "{{ user }}"
 
     - name: Install Motion
       community.general.mas:
         id: 434290957
         state: present
       become: false
+      become_user: "{{ user }}"

@@ -3,5 +3,6 @@
     name: rustup-init
     state: present
   become: false
+  become_user: "{{ user }}"
   tags:
     - rust

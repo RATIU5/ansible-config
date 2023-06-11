@@ -3,15 +3,22 @@
     name: n
     state: present
   become: false
+  become_user: "{{ user }}"
   tags:
     - node
 
 - name: Install Node.js version 16
   ansible.builtin.shell: n 16
+  become: false
+  become_user: "{{ user }}"
   tags:
     - node
 
 - name: Configure npm cache directory
-  ansible.builtin.shell: npm config set cache {{ cache_dir }}/npm --global
+  shell: |
+    source "$(which n)"
+    npm config set cache {{ cache_dir }}/npm
+  become: false
+  become_user: "{{ user }}"
   tags:
     - node

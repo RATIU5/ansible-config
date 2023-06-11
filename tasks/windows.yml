@@ -8,13 +8,17 @@
         name: koekeishiya/formulae/yabai
         state: present
       become: false
+      become_user: "{{ user }}"
 
     - name: Start yabai
       ansible.builtin.shell: yabai --start-service
       ignore_errors: true
+      become: false
+      become_user: "{{ user }}"
 
     - name: Install Skhd
       community.general.homebrew:
         name: koekeishiya/formulae/skhd
         state: present
       become: false
+      become_user: "{{ user }}"

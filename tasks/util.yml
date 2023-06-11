@@ -3,6 +3,7 @@
     name: ripgrep
     state: present
   become: false
+  become_user: "{{ user }}"
   tags:
     - util
 
@@ -11,5 +12,6 @@
     name: stow
     state: present
   become: false
+  become_user: "{{ user }}"
   tags:
     - util

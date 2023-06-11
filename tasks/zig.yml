@@ -3,5 +3,6 @@
     name: zig
     state: present
   become: false
+  become_user: "{{ user }}"
   tags:
     - zig
