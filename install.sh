@@ -46,7 +46,8 @@ install_brew() {
     fi
 }
 
-if ! is_mac && ! is_linux; then
+# Mac support only, beacuse :P
+if ! is_mac; then
     echo "Unsupported operating system: $OS"
     exit 1
 fi
