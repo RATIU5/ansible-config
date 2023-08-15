@@ -58,3 +58,39 @@
         state: present
       become: false
       become_user: "{{ user }}"
+    
+    - name: Affinity Photo 2
+      community.general.mas:
+        id: 1616822987
+        state: present
+      become: false
+      become_user: "{{ user }}"
+
+    - name: Affinity Designer 2
+      community.general.mas:
+        id: 1616831348
+        state: present
+      become: false
+      become_user: "{{ user }}"
+
+    - name: Affinity Publisher 2
+      community.general.mas:
+        id: 1606941598
+        state: present
+      become: false
+      become_user: "{{ user }}"
+
+    - name: Spark Email
+      community.general.mas:
+        id: 1176895641
+        state: present
+      become: false
+      become_user: "{{ user }}"
+
+    - name: Dropover
+      community.general.mas:
+        id: 1355679052
+        state: present
+      become: false
+      become_user: "{{ user }}"
+

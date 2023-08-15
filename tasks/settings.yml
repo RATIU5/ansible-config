@@ -25,12 +25,6 @@
       become: true
       tags:
         - settings
-    - name: Reset Dock to default state
-      ansible.builtin.shell: defaults write com.apple.dock persistent-apps -array
-      become: true
-      become_user: "{{ user }}"
-      tags:
-        - settings
     - name: Restart Dock
       ansible.builtin.shell: killall Dock
       become_user: "{{ user }}"

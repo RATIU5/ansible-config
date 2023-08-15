@@ -3,12 +3,6 @@
   become: false
   name: RATIU5' playbook
   pre_tasks:
-      - name: Update the package manager (Linux)
-        when: "'Linux' in ansible_system"
-        become: false
-        ansible.builtin.package:
-            update_cache: true
-            state: present
       - name: Update homebrew (macOS)
         when: "'Darwin' in ansible_system"
         become: false
@@ -28,11 +22,6 @@
       git_user_name: "RATIU5"
       git_user_email: "jcmemmott20@outlook.com"
   tasks:
-      - name: Init (Linux)
-        ansible.builtin.import_tasks: tasks/init.yml
-        when: "'Linux' in ansible_system"
-        vars:
-            homebrew_prefix: /home/linuxbrew/.linuxbrew
       - name: Init (macOS)
         ansible.builtin.import_tasks: tasks/init.yml
         when: "'Darwin' in ansible_system"
@@ -56,8 +45,6 @@
         ansible.builtin.import_tasks: tasks/bun.yml
       - name: Install rust
         ansible.builtin.import_tasks: tasks/rust.yml
-      - name: Install zig
-        ansible.builtin.import_tasks: tasks/zig.yml
       - name: Install golang
         ansible.builtin.import_tasks: tasks/golang.yml
       - name: Install Cask apps

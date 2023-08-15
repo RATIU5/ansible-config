@@ -4,10 +4,6 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-is_linux() {
-  [ "$(uname)" == "Linux" ] && return 0 || return 1
-}
-
 is_mac() {
   [ "$(uname)" == "Darwin" ] && return 0 || return 1
 }
@@ -23,27 +19,9 @@ ensure_file_exists() {
 }
 
 install_brew() {
-    if is_linux; then
-        if command_exists apt; then
-            apt update
-            apt install -y build-essential git
-        elif command_exists yum; then
-            yum -y groupinstall 'Development Tools'
-            yum -y install git
-        else
-            echo "Unsupported package manager. Install Homebrew manually."
-            exit 1
-        fi
-    fi
-
     echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-    if is_linux; then
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    elif is_mac; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-    fi
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
 # Mac support only, beacuse :P

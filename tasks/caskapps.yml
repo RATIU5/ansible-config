@@ -24,13 +24,6 @@
       become: false
       become_user: "{{ user }}"
 
-    - name: Install Visual Studio Code
-      community.general.homebrew_cask:
-        name: visual-studio-code
-        state: present
-      become: false
-      become_user: "{{ user }}"
-
     - name: Install Docker
       community.general.homebrew_cask:
         name: docker
@@ -41,13 +34,6 @@
     - name: Install Raindrop.io
       community.general.homebrew_cask:
         name: raindropio
-        state: present
-      become: false
-      become_user: "{{ user }}"
-
-    - name: Install Notion
-      community.general.homebrew_cask:
-        name: notion
         state: present
       become: false
       become_user: "{{ user }}"
