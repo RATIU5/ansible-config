@@ -14,11 +14,11 @@
 #   tags:
 #     - node
 
-- name: Configure npm cache directory
-  shell: |
-    source "$(which n)"
-    npm config set cache {{ cache_dir }}/npm
-  become: false
-  become_user: "{{ user }}"
-  tags:
-    - node
+# - name: Configure npm cache directory
+#   shell: |
+#     source "$(which n)"
+#     npm config set cache {{ cache_dir }}/npm
+#   become: false
+#   become_user: "{{ user }}"
+#   tags:
+#     - node
