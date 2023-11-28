@@ -3,51 +3,51 @@
   become: false
   name: RATIU5' playbook
   pre_tasks:
-      - name: Update homebrew (macOS)
-        when: "'Darwin' in ansible_system"
-        become: false
-        community.general.homebrew:
-            update_homebrew: true
-        tags:
-            - init
+    - name: Update homebrew (macOS)
+      when: "'Darwin' in ansible_system"
+      become: false
+      community.general.homebrew:
+        update_homebrew: true
+      tags:
+        - init
   vars:
-      home: "{{ ansible_env.HOME }}"
-      config_dir: "{{ home }}/.config"
-      cache_dir: "{{ home }}/.cache"
-      data_dir: "{{ home }}/.local/share"
-      bin_dir: "{{ home }}/.local/bin"
-      zshrc: "{{ config_dir }}/zsh/.zshrc"
-      git_dir: "{{ config_dir }}/git"
-      user: "ratiu5"
-      git_user_name: "RATIU5"
-      git_user_email: "jcmemmott20@outlook.com"
+    home: "{{ ansible_env.HOME }}"
+    config_dir: "{{ home }}/.config"
+    cache_dir: "{{ home }}/.cache"
+    data_dir: "{{ home }}/.local/share"
+    bin_dir: "{{ home }}/.local/bin"
+    zshrc: "{{ config_dir }}/zsh/.zshrc"
+    git_dir: "{{ config_dir }}/git"
+    user: "ratiu5"
+    git_user_name: "RATIU5"
+    git_user_email: "jcmemmott20@outlook.com"
   tasks:
-      - name: Init (macOS)
-        ansible.builtin.import_tasks: tasks/init.yml
-        when: "'Darwin' in ansible_system"
-        vars:
-            homebrew_prefix: /opt/homebrew
-      - name: Configure aliases
-        ansible.builtin.import_tasks: tasks/alias.yml
-      - name: Configure settings
-        ansible.builtin.import_tasks: tasks/settings.yml
-      - name: Install Window Management
-        ansible.builtin.import_tasks: tasks/windows.yml
-      - name: Configure git
-        ansible.builtin.import_tasks: tasks/git.yml
-      - name: Configure podman
-        ansible.builtin.import_tasks: tasks/podman.yml
-      - name: Install node
-        ansible.builtin.import_tasks: tasks/node.yml
-      - name: Install deno
-        ansible.builtin.import_tasks: tasks/deno.yml
-      - name: Install bun
-        ansible.builtin.import_tasks: tasks/bun.yml
-      - name: Install rust
-        ansible.builtin.import_tasks: tasks/rust.yml
-      - name: Install golang
-        ansible.builtin.import_tasks: tasks/golang.yml
-      - name: Install Cask apps
-        ansible.builtin.import_tasks: tasks/caskapps.yml
-      - name: Install App Store apps
-        ansible.builtin.import_tasks: tasks/macapps.yml
+    - name: Init (macOS)
+      ansible.builtin.import_tasks: tasks/init.yml
+      when: "'Darwin' in ansible_system"
+      vars:
+        homebrew_prefix: /opt/homebrew
+    - name: Configure aliases
+      ansible.builtin.import_tasks: tasks/alias.yml
+    - name: Configure settings
+      ansible.builtin.import_tasks: tasks/settings.yml
+    - name: Install Window Management
+      ansible.builtin.import_tasks: tasks/windows.yml
+    - name: Configure git
+      ansible.builtin.import_tasks: tasks/git.yml
+    # - name: Configure podman
+    #   ansible.builtin.import_tasks: tasks/podman.yml
+    - name: Install node
+      ansible.builtin.import_tasks: tasks/node.yml
+    # - name: Install deno
+    #   ansible.builtin.import_tasks: tasks/deno.yml
+    - name: Install bun
+      ansible.builtin.import_tasks: tasks/bun.yml
+    - name: Install rust
+      ansible.builtin.import_tasks: tasks/rust.yml
+    - name: Install golang
+      ansible.builtin.import_tasks: tasks/golang.yml
+    - name: Install Cask apps
+      ansible.builtin.import_tasks: tasks/caskapps.yml
+    - name: Install App Store apps
+      ansible.builtin.import_tasks: tasks/macapps.yml

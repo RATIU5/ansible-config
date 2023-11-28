@@ -4,7 +4,7 @@ This is my main ansible script for setting up my environment. Works the same on 
 
 ## Prerequisites
 
-MacOS operating system, since it relies on Homebrew.
+MacOS operating system.
 
 Ensure you have the following installed on your system (installed by default):
 
