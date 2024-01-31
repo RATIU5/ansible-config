@@ -1,0 +1,23 @@
+- name: "Setup dotfiles"
+  block:
+    - name: "Install GNU Stow via Homebrew"
+      community.general.homebrew:
+        name: stow
+        state: present
+      become: false
+      become_user: "{{ user }}"
+    - name: Check if the target directory exists
+      stat:
+        path: "{{ home }}/Developer/dotfiles"
+      register: git_clone_directory
+    - name: "Clone dotfiles from GitHub"
+      ansible.builtin.git:
+        repo: "https://github.com/RATIU5/dotfiles.git"
+        dest: "{{ home }}/Developer"
+      when: not git_clone_directory.stat.exists
+    - name: "Stow dotfiles to home directory"
+      ansible.builtin.shell:
+        cmd: "stow -t {{ home }}/.config dotfiles"
+        chdir: "{{ home }}/Developer"
+  tags:
+    - dotfiles

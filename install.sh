@@ -57,6 +57,7 @@ read -r answer
 if [ "$answer" != "y" ]; then
     echo ""
     echo "Got it. You can run the playbook manually with:"
+    echo ""
     echo "ansible-pull -U "https://github.com/RATIU5/ansible-config.git" local.yml"
 else
     echo ""
