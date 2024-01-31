@@ -1,7 +1,8 @@
 ---
 - hosts: localhost
+# Become needs to be false, opt in to become manually in tasks
   become: false
-  name: RATIU5' playbook
+  name: RATIU5' Ansible Playbook
   pre_tasks:
       - name: Update homebrew (macOS)
         when: "'Darwin' in ansible_system"

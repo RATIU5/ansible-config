@@ -24,13 +24,18 @@ install_brew() {
     eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
-# Mac support only, beacuse :P
+# Mac support only for now, beacuse :P
+# Eveantually, I will add support for Linux
 if ! is_mac; then
     echo "Unsupported operating system: $OS"
     exit 1
 fi
 
 if ! command_exists brew; then
+    if ! command_exists curl; then
+        echo "curl is required to install Homebrew. Please install curl."
+        exit 1
+    fi
     install_brew
     echo "Homebrew installed."
 else
@@ -38,10 +43,23 @@ else
 fi
 
 if ! command_exists ansible; then
+    export ANSIBLE_HOME=~/.config/.ansible
     brew install ansible
     echo "Ansible installed."
 else 
     echo "Ansible already installed."
 fi
 
-ansible-pull -U "https://github.com/RATIU5/ansible-config.git" local.yml
+echo ""
+
+echo "Would you like me to install your ansible playbook for you? (y/n)"
+read -r answer
+if [ "$answer" != "y" ]; then
+    echo ""
+    echo "Got it. You can run the playbook manually with:"
+    echo "ansible-pull -U "https://github.com/RATIU5/ansible-config.git" local.yml"
+else
+    echo ""
+    echo "Running the ansible playbook. This may take a while..."
+    ansible-pull -U "https://github.com/RATIU5/ansible-config.git" local.yml
+fi
