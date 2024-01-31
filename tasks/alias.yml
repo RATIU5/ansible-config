@@ -1,5 +1,5 @@
 - name: Add aliases
-  become: yes
+  become: true
   become_user: "{{ user }}"
   block:
     - name: Add gcm alias

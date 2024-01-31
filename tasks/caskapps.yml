@@ -87,9 +87,9 @@
       become: false
       become_user: "{{ user }}"
 
-    - name: Install OBS
-      community.general.homebrew_cask:
-        name: obs
-        state: present
-      become: false
-      become_user: "{{ user }}"
+    # - name: Install OBS
+    #   community.general.homebrew_cask:
+    #     name: obs
+    #     state: present
+    #   become: false
+    #   become_user: "{{ user }}"
