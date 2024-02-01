@@ -8,7 +8,7 @@
       become_user: "{{ user }}"
 
     - name: Install Node.js version 20
-      ansible.builtin.shell: sudo n 20
+      ansible.builtin.shell: n 20
       become: true
       become_user: "{{ user }}"
 

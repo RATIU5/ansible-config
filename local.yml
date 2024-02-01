@@ -31,28 +31,10 @@
       ansible.builtin.import_tasks: tasks/alias.yml
     - name: "Settings"
       ansible.builtin.import_tasks: tasks/settings.yml
+    - name: Install Window Management
+      ansible.builtin.import_tasks: tasks/windows.yml
     - name: "Install languages"
       ansible.builtin.import_tasks: tasks/lang.yml
-    # - name: Configure aliases
-    #   ansible.builtin.import_tasks: tasks/alias.yml
-    # - name: Configure settings
-    #   ansible.builtin.import_tasks: tasks/settings.yml
-    # - name: Install Window Management
-    #   ansible.builtin.import_tasks: tasks/windows.yml
-    # - name: Configure git
-    #   ansible.builtin.import_tasks: tasks/git.yml
-    # - name: Configure podman
-    #   ansible.builtin.import_tasks: tasks/podman.yml
-    # - name: Install node
-    #   ansible.builtin.import_tasks: tasks/node.yml
-    # - name: Install deno
-    #   ansible.builtin.import_tasks: tasks/deno.yml
-    # - name: Install bun
-    #   ansible.builtin.import_tasks: tasks/bun.yml
-    # - name: Install rust
-    #   ansible.builtin.import_tasks: tasks/rust.yml
-    # - name: Install golang
-    #   ansible.builtin.import_tasks: tasks/golang.yml
     # - name: Install Cask apps
     #   ansible.builtin.import_tasks: tasks/caskapps.yml
     # - name: Install App Store apps
