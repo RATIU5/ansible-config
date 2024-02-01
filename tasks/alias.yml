@@ -189,10 +189,10 @@
       tags:
         - alias
 
-    - name: Add mkcd alias
+    - name: Neovim
       ansible.builtin.lineinfile:
         path: "{{ zshrc }}"
-        line: "alias mkcd='mkdir $1 && cd $1'"
+        line: "alias vim='nvim'"
         state: present
         insertafter: EOF
         create: true
