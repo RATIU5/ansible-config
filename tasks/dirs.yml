@@ -1,0 +1,23 @@
+- name: "Create directory structure"
+  become: yes
+  become_user: "{{ user }}"
+  block:
+    - name: "Ensure {{ cache_dir }} directory exists"
+      ansible.builtin.file:
+        path: "{{ cache_dir }}"
+        state: directory
+        mode: "0o777"
+
+    - name: "Ensure {{ data_dir }} directory exists"
+      ansible.builtin.file:
+        path: "{{ data_dir }}"
+        state: directory
+        mode: "0o777"
+
+    - name: "Ensure {{ bin_dir }} directory exists"
+      ansible.builtin.file:
+        path: "{{ bin_dir }}"
+        state: directory
+        mode: "0o777"
+  tags:
+    - dirs

@@ -1,0 +1,69 @@
+- name: zsh
+  block:
+    - name: Check if zsh is installed
+      ansible.builtin.shell: which zsh
+      register: zsh_installed
+      ignore_errors: true
+
+    - name: Install zsh
+      community.general.homebrew:
+        name: zsh
+        state: present
+      become: false
+      when: zsh_installed.rc != 0
+  tags:
+    - terminal
+    - zsh
+
+- name: Set zsh as the default shell
+  block:
+    - name: Retrieve shell path
+      ansible.builtin.shell: echo $SHELL
+      register: shell
+
+    - name: Retrieve zsh path
+      ansible.builtin.shell: which zsh
+      register: zsh_path
+
+    - name: Set zsh as the default shell
+      ansible.builtin.shell: chsh -s "{{ zsh_path.stdout }}"
+      when: shell.stdout != zsh_path.stdout
+  tags:
+    - terminal
+    - zsh
+
+- name: Install zsh-autosuggestions via homebrew
+  community.general.homebrew:
+    name: zsh-autosuggestions
+    state: present
+  become: false
+  tags:
+    - terminal
+    - zsh
+
+- name: Install starship via homebrew
+  community.general.homebrew:
+    name: starship
+    state: present
+  become: false
+  tags:
+    - terminal
+    - starship
+
+- name: Install tmux
+  community.general.homebrew:
+    name: tmux
+    state: present
+  become: false
+  tags:
+    - terminal
+    - tmux
+
+- name: Install neovim
+  community.general.homebrew:
+    name: neovim
+    state: present
+  become: false
+  tags:
+    - terminal
+    - nvim

@@ -1,8 +1,0 @@
-- name: Install Go
-  homebrew:
-    name: go
-    state: latest
-  become: false
-  become_user: "{{ user }}"
-  tags:
-    - go

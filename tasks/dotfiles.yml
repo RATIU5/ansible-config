@@ -6,18 +6,18 @@
         state: present
       become: false
       become_user: "{{ user }}"
-    - name: Check if the target directory exists
+    - name: Check if the {{ dev_dir }}/{{ dotfile_name }} directory exists
       stat:
-        path: "{{ home }}/Developer/dotfiles"
+        path: "{{ dev_dir }}/{{ dotfile_name }}"
       register: git_clone_directory
-    - name: "Clone dotfiles from GitHub"
+    - name: "Clone {{ dotfile_name }} from GitHub"
       ansible.builtin.git:
-        repo: "https://github.com/RATIU5/dotfiles.git"
-        dest: "{{ home }}/Developer"
+        repo: "{{ dotfile_repo }}"
+        dest: "{{ dev_dir }}"
       when: not git_clone_directory.stat.exists
-    - name: "Stow dotfiles to home directory"
+    - name: "Stow {{ dotfile_name }} to {{ config_dir }}"
       ansible.builtin.shell:
-        cmd: "stow -t {{ home }}/.config dotfiles"
-        chdir: "{{ home }}/Developer"
+        cmd: "stow -t {{ config_dir }} {{ dotfile_name }}"
+        chdir: "{{ dev_dir }}"
   tags:
     - dotfiles
