@@ -1,0 +1,62 @@
+- name: Install n and node
+  block:
+    - name: Install n node version manager
+      community.general.homebrew:
+        name: n
+        state: present
+      become: false
+      become_user: "{{ user }}"
+
+    - name: Install Node.js version 20
+      ansible.builtin.shell: n 20
+      become: true
+      become_user: "{{ user }}"
+
+    - name: Configure npm cache directory
+      shell: |
+        source "$(which n)"
+        npm config set cache {{ cache_dir }}/npm --global 
+      become: false
+      become_user: "{{ user }}"
+  tags:
+    - lang
+    - js
+
+- name: Install rustup
+  homebrew:
+    name: rustup-init
+    state: present
+  become: false
+  become_user: "{{ user }}"
+  tags:
+    - lang
+    - rust
+
+- name: Install Go
+  homebrew:
+    name: go
+    state: latest
+  become: false
+  become_user: "{{ user }}"
+  tags:
+    - lang
+    - go
+
+- name: Bun
+  block:
+    - name: Tap into the bun repo
+      community.general.homebrew_tap:
+        name: oven-sh/bun
+        state: present
+      become: false
+      become_user: "{{ user }}"
+
+    - name: Install bun
+      community.general.homebrew:
+        name: bun
+        state: present
+      become: false
+      become_user: "{{ user }}"
+  tags:
+    - lang
+    - js

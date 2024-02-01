@@ -1,52 +1,40 @@
 ---
 - hosts: localhost
+# Become needs to be false, opt in to become manually in tasks
   become: false
-  name: RATIU5' playbook
+  name: RATIU5' Ansible Playbook
   pre_tasks:
     - name: Update homebrew (macOS)
       when: "'Darwin' in ansible_system"
       become: false
       community.general.homebrew:
         update_homebrew: true
-      tags:
-        - init
   vars:
+    user: "{{ ansible_env.USER }}"
     home: "{{ ansible_env.HOME }}"
     config_dir: "{{ home }}/.config"
     cache_dir: "{{ home }}/.cache"
     data_dir: "{{ home }}/.local/share"
     bin_dir: "{{ home }}/.local/bin"
+    dev_dir: "{{ home }}/Developer"
     zshrc: "{{ config_dir }}/zsh/.zshrc"
-    git_dir: "{{ config_dir }}/git"
-    user: "ratiu5"
-    git_user_name: "RATIU5"
-    git_user_email: "jcmemmott20@outlook.com"
+    dotfile_repo: "https://github.com/RATIU5/dotfiles.git"
+    dotfile_name: "dotfiles"
   tasks:
-    - name: Init (macOS)
-      ansible.builtin.import_tasks: tasks/init.yml
-      when: "'Darwin' in ansible_system"
-      vars:
-        homebrew_prefix: /opt/homebrew
-    - name: Configure aliases
+    - name: "Directories"
+      ansible.builtin.import_tasks: tasks/dirs.yml
+    - name: "dotfiles"
+      ansible.builtin.import_tasks: tasks/dotfiles.yml
+    - name: "Terminal"
+      ansible.builtin.import_tasks: tasks/terminal.yml
+    - name: "Aliases"
       ansible.builtin.import_tasks: tasks/alias.yml
-    - name: Configure settings
+    - name: "Settings"
       ansible.builtin.import_tasks: tasks/settings.yml
     - name: Install Window Management
       ansible.builtin.import_tasks: tasks/windows.yml
-    - name: Configure git
-      ansible.builtin.import_tasks: tasks/git.yml
-    # - name: Configure podman
-    #   ansible.builtin.import_tasks: tasks/podman.yml
-    - name: Install node
-      ansible.builtin.import_tasks: tasks/node.yml
-    # - name: Install deno
-    #   ansible.builtin.import_tasks: tasks/deno.yml
-    - name: Install bun
-      ansible.builtin.import_tasks: tasks/bun.yml
-    - name: Install rust
-      ansible.builtin.import_tasks: tasks/rust.yml
-    - name: Install golang
-      ansible.builtin.import_tasks: tasks/golang.yml
+    - name: "Install languages"
+      ansible.builtin.import_tasks: tasks/lang.yml
     - name: Install Cask apps
       ansible.builtin.import_tasks: tasks/caskapps.yml
     - name: Install App Store apps

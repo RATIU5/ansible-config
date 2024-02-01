@@ -1,8 +1,0 @@
-- name: Install podman using Homebrew
-  community.general.homebrew:
-    name: podman
-    state: present
-  become: false
-  become_user: "{{ user }}"
-  tags:
-    - podman

@@ -1,8 +1,0 @@
-- name: Install stow
-  homebrew:
-    name: stow
-    state: present
-  become: false
-  become_user: "{{ user }}"
-  tags:
-    - stow
