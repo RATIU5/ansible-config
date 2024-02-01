@@ -35,7 +35,7 @@
       ansible.builtin.import_tasks: tasks/windows.yml
     - name: "Install languages"
       ansible.builtin.import_tasks: tasks/lang.yml
-    # - name: Install Cask apps
-    #   ansible.builtin.import_tasks: tasks/caskapps.yml
-    # - name: Install App Store apps
-    #   ansible.builtin.import_tasks: tasks/macapps.yml
+    - name: Install Cask apps
+      ansible.builtin.import_tasks: tasks/caskapps.yml
+    - name: Install App Store apps
+      ansible.builtin.import_tasks: tasks/macapps.yml
