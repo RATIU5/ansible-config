@@ -67,3 +67,21 @@
   tags:
     - terminal
     - nvim
+
+- name: Fonts
+  block:
+    - name: Tap homebrew/cask-fonts
+      community.general.homebrew_tap:
+        name: homebrew/cask-fonts
+        state: present
+      become: false
+      become_user: "{{ user }}"
+
+    - name: Install font-jetbrains-mono-nerd-font via Homebrew
+      community.general.homebrew:
+        name: font-jetbrains-mono-nerd-font
+        state: present
+      ignore_errors: true
+  tags:
+    - terminal
+    - fonts
