@@ -59,6 +59,14 @@
     - terminal
     - tmux
 
+- name: Configure tmux
+  ansible.builtin.shell: "tmux -f {{ config_dir }}/tmux/.tmux.conf" 
+  ignore_errors: true
+  tags:
+    - terminal
+    - tmux
+
+
 - name: Install neovim
   community.general.homebrew:
     name: neovim
