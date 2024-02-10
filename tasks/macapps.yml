@@ -10,6 +10,20 @@
       become: false
       become_user: "{{ user }}"
 
+    - name: Spark Email
+      community.general.mas:
+        id: 1176895641
+        state: present
+      become: false
+      become_user: "{{ user }}"
+
+    - name: Dropover
+      community.general.mas:
+        id: 1355679052
+        state: present
+      become: false
+      become_user: "{{ user }}"
+
     - name: Install Pixelmator Pro
       community.general.mas:
         id: 1289583905
@@ -80,17 +94,5 @@
       become: false
       become_user: "{{ user }}"
 
-    - name: Spark Email
-      community.general.mas:
-        id: 1176895641
-        state: present
-      become: false
-      become_user: "{{ user }}"
 
-    - name: Dropover
-      community.general.mas:
-        id: 1355679052
-        state: present
-      become: false
-      become_user: "{{ user }}"
 

@@ -23,14 +23,14 @@
   tasks:
     - name: "Directories"
       ansible.builtin.import_tasks: tasks/dirs.yml
+    - name: "Settings"
+      ansible.builtin.import_tasks: tasks/settings.yml
     - name: "dotfiles"
       ansible.builtin.import_tasks: tasks/dotfiles.yml
     - name: "Terminal"
       ansible.builtin.import_tasks: tasks/terminal.yml
     - name: "Aliases"
       ansible.builtin.import_tasks: tasks/alias.yml
-    - name: "Settings"
-      ansible.builtin.import_tasks: tasks/settings.yml
     - name: Install Window Management
       ansible.builtin.import_tasks: tasks/windows.yml
     - name: "Install languages"

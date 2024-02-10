@@ -19,5 +19,11 @@
         path: "{{ bin_dir }}"
         state: directory
         mode: "0o777"
+        
+    - name: "Ensure {{ dev_dir }} directory exists"
+      ansible.builtin.file:
+        path: "{{ dev_dir }}"
+        state: directory
+        mode: "0o777"
   tags:
     - dirs

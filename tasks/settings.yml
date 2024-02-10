@@ -1,69 +1,130 @@
 - name: Set general settings (mac)
   when: '"Darwin" in ansible_system'
   block:
-    - name: Set Dock to auto-hide
-      ansible.builtin.shell: defaults write com.apple.dock autohide -bool true
+    - name: "Set dark mode"
+      ansible.builtin.shell: osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to true'
       become_user: "{{ user }}"
       become: true
-      tags:
-        - settings
-    - name: Set Dock delay to 0
-      ansible.builtin.shell: defaults write com.apple.dock autohide-delay -float 0
+
+    - name: "Configure the dock"
+      block:
+        - name: Set Dock to auto-hide
+          ansible.builtin.shell: "defaults write com.apple.dock autohide -bool true"
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Set Dock delay to 0
+          ansible.builtin.shell: "defaults write com.apple.dock autohide-delay -float 0"
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Set Dock animation to 0
+          ansible.builtin.shell: "defaults write com.apple.dock autohide-time-modifier -float 0"
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Set Dock size
+          ansible.builtin.shell: "defaults write com.apple.dock tilesize -int 100"
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Set the dock to the right side
+          ansible.builtin.shell: "defaults write com.apple.dock orientation right"
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Minimize windows to their application icons
+          ansible.builtin.shell: "defaults write com.apple.dock minimize-to-application -bool true"
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Disable dashboard
+          ansible.builtin.shell: "defaults write com.apple.dashboard mcx-disabled -bool true"
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Restart Dock
+          ansible.builtin.shell: killall Dock
+          become_user: "{{ user }}"
+          become: true
+
+    - name: Finder configuration
+      block:
+        - name: Show hidden files
+          ansible.builtin.shell: defaults write com.apple.finder AppleShowAllFiles YES
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Show path bar
+          ansible.builtin.shell: defaults write com.apple.finder ShowPathbar -bool true
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Show status bar
+          ansible.builtin.shell: defaults write com.apple.finder ShowStatusBar -bool true
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Show all filename extensions
+          ansible.builtin.shell: defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Disable the warning when changing a file extension
+          ansible.builtin.shell: defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Disable iCloud in Finder
+          ansible.builtin.shell: defaults write com.apple.finder FXICloudDriveEnabled -bool false
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Hide folders and files on Desktop
+          ansible.builtin.shell: "defaults write com.apple.finder CreateDesktop -bool false"
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Disable window animations
+          ansible.builtin.shell: "defaults write com.apple.finder DisableAllAnimations -bool true"
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Use list view in finder
+          ansible.builtin.shell: "defaults write com.apple.finder FXPreferredViewStyle -string 'Nlsv'"
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Disable the creation of .DS_Store files on network or USB volumes
+          ansible.builtin.shell: "defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true && defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true"
+          become_user: "{{ user }}"
+          become: true
+
+        - name: Restart Finder
+          ansible.builtin.shell: killall Finder
+          become_user: "{{ user }}"
+          become: true
+
+    - name: Text configurations
+      block:
+        - name: Disable smart quotes and dashes
+          ansible.builtin.shell: "defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false && defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false"
+          become_user: "{{ user }}"
+          become: true
+        - name: "Disable auto correct"
+          ansible.builtin.shell: "defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false"
+          become_user: "{{ user }}"
+          become: true
+    
+    - name: Change default location of screenshots
+      ansible.builtin.shell: "defaults write com.apple.screencapture location {{ home }}/Pictures && killall SystemUIServer"
       become_user: "{{ user }}"
       become: true
-      tags:
-        - settings
-    - name: Set Dock animation to 0
-      ansible.builtin.shell: defaults write com.apple.dock autohide-time-modifier -float 0
+
+    - name: Prevent system from logging keystrokes in terminal
+      ansible.builtin.shell: "defaults write com.apple.terminal SecureKeyboardEntry -bool true"
       become_user: "{{ user }}"
       become: true
-      tags:
-        - settings
-    - name: Set Dock size
-      ansible.builtin.shell: defaults write com.apple.dock tilesize -int 100
-      become_user: "{{ user }}"
-      become: true
-      tags:
-        - settings
-    - name: Restart Dock
-      ansible.builtin.shell: killall Dock
-      become_user: "{{ user }}"
-      become: true
-      tags:
-        - settings
-    - name: Show hidden files
-      ansible.builtin.shell: defaults write com.apple.finder AppleShowAllFiles YES
-      become_user: "{{ user }}"
-      become: true
-      tags:
-        - settings
-    - name: Show path bar
-      ansible.builtin.shell: defaults write com.apple.finder ShowPathbar -bool true
-      become_user: "{{ user }}"
-      become: true
-      tags:
-        - settings
-    - name: Show status bar
-      ansible.builtin.shell: defaults write com.apple.finder ShowStatusBar -bool true
-      become_user: "{{ user }}"
-      become: true
-      tags:
-        - settings
-    - name: Show all filename extensions
-      ansible.builtin.shell: defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-      become_user: "{{ user }}"
-      become: true
-      tags:
-        - settings
-    - name: Disable the warning when changing a file extension
-      ansible.builtin.shell: defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-      become_user: "{{ user }}"
-      become: true
-      tags:
-        - settings
-    - name: Disable iCloud in Finder
-      ansible.builtin.shell: defaults write com.apple.finder FXICloudDriveEnabled -bool false
-      become_user: "{{ user }}"
-      become: true
-      tags:
-        - settings
+
+  tags:
+    - settings

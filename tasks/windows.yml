@@ -16,6 +16,12 @@
       become: false
       become_user: "{{ user }}"
 
+    - name: Setup yabai to organize windows correctly
+      ansible.builtin.shell: yabai -m config layout bsp
+      ignore_errors: true
+      become_user: "{{ user }}"
+      become: false
+
     - name: Install Skhd
       community.general.homebrew:
         name: koekeishiya/formulae/skhd

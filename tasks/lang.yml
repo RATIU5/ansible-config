@@ -11,13 +11,6 @@
       ansible.builtin.shell: n 20
       become: true
       become_user: "{{ user }}"
-
-    - name: Configure npm cache directory
-      shell: |
-        source "$(which n)"
-        npm config set cache {{ cache_dir }}/npm --global 
-      become: false
-      become_user: "{{ user }}"
   tags:
     - lang
     - js

@@ -13,11 +13,11 @@
     - name: "Clone {{ dotfile_name }} from GitHub"
       ansible.builtin.git:
         repo: "{{ dotfile_repo }}"
-        dest: "{{ dev_dir }}"
+        dest: "{{ dev_dir }}/{{ dotfile_name }}"
       when: not git_clone_directory.stat.exists
     - name: "Stow {{ dotfile_name }} to {{ config_dir }}"
       ansible.builtin.shell:
-        cmd: "stow -t {{ config_dir }} {{ dotfile_name }}"
+        cmd: "cd {{ dev_dir}} && $(which stow) -t {{ home }} {{ dotfile_name }}"
         chdir: "{{ dev_dir }}"
   tags:
     - dotfiles

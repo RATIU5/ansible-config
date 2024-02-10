@@ -1,4 +1,4 @@
-- name: zsh
+- name: zsh setup
   block:
     - name: Check if zsh is installed
       ansible.builtin.shell: which zsh
@@ -60,12 +60,63 @@
     - tmux
 
 - name: Configure tmux
-  ansible.builtin.shell: "tmux -f {{ config_dir }}/tmux/.tmux.conf" 
+  ansible.builtin.shell: "tmux -f {{ config_dir }}/tmux/.tmux.conf"
   ignore_errors: true
   tags:
     - terminal
     - tmux
 
+- name: Install bat as a cat replacement
+  community.general.homebrew:
+    name: bat
+    state: present
+  become: false
+  tags:
+    - terminal
+    - bat
+
+- name: Install fzf
+  community.general.homebrew:
+    name: fzf
+    state: present
+  become: false
+  tags:
+    - terminal
+    - fzf
+
+- name: Setup fzf
+  ansible.builtin.shell: $(brew --prefix)/opt/fzf/install
+  ignore_errors: true
+  tags:
+    - terminal
+    - fzf
+
+- name: Install ripgrep, replacement for grep
+  community.general.homebrew:
+    name: ripgrep
+    state: present
+  become: false
+  tags:
+    - terminal
+    - ripgrep
+
+- name: Install fd, replacement for find
+  community.general.homebrew:
+    name: fd
+    state: present
+  become: false
+  tags:
+    - terminal
+    - fd
+
+- name: Install eza, replacement for ls
+  community.general.homebrew:
+    name: eza
+    state: present
+  become: false
+  tags:
+    - terminal
+    - eza
 
 - name: Install neovim
   community.general.homebrew:

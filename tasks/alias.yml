@@ -199,3 +199,25 @@
         mode: "0o777"
       tags:
         - alias
+
+    - name: Add ls alias
+      ansible.builtin.lineinfile:
+        path: "{{ zshrc }}"
+        line: "alias ls='eza'"
+        state: present
+        insertafter: EOF
+        create: true
+        mode: "0o777"
+      tags:
+        - alias
+    
+    - name: Add lst alias
+      ansible.builtin.lineinfile:
+        path: "{{ zshrc }}"
+        line: "alias lst='eza --tree'"
+        state: present
+        insertafter: EOF
+        create: true
+        mode: "0o777"
+      tags:
+        - alias
